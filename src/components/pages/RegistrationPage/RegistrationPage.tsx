@@ -53,7 +53,7 @@ const RegistrationPage = (props: any) => {
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title level={2} type="secondary" style={{color: "#8B008B"}}>
+                <Title level={4} type="secondary" style={{color: "#8B008B"}}>
                   <GlobalOutlined />
                   &nbsp; Lets Get You Setup!
                 </Title>
@@ -139,12 +139,11 @@ const RegistrationPage = (props: any) => {
                       Create Account
                     </Button>
                   </Form.Item>
-                  <Form.Item>
+                  <hr />
+                  <Form.Item style={{textAlign:"center"}}>
+                    Already have an account?&nbsp;
                     <Link to="/login" style={{ color: "#8B008B" }}>
-                      Login Here!
-                    </Link>
-                    <Link to="/forgot-password" style={{ color: "#8B008B" }} className="login-form-forgot">
-                      Forgot password?
+                      Log in
                     </Link>
                   </Form.Item>
                 </Form>

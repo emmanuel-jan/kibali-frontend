@@ -40,9 +40,9 @@ const LoginPage = (props: any) => {
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title level={2} style={{ color: "#8B008B" }}>
+                <Title level={4} style={{ color: "#8B008B" }}>
                   <LoginOutlined />
-                  &nbsp; Login Here
+                  &nbsp; Log in to your Kibali account
                 </Title>
                 <Form
                   name="normal_login"
@@ -88,12 +88,16 @@ const LoginPage = (props: any) => {
                       Log in
                     </Button>
                   </Form.Item>
-                  <Form.Item>
-                    <Link to="/registration" style={{ color: "#8B008B" }}>
-                        Register now!
-                    </Link>
-                    <Link to="/forgot-password" style={{ color: "#8B008B" }} className="login-form-forgot">
+                  <Form.Item style={{textAlign:"center"}}>
+                    Or&nbsp;<Link to="/forgot-password" style={{ color: "#8B008B" }}>
                         Forgot password?
+                    </Link>
+                  </Form.Item>
+                  <hr />
+                  <Form.Item style={{textAlign:"center"}}>
+                    Don't have an account?&nbsp;
+                    <Link to="/registration" style={{ color: "#8B008B" }}>
+                      Sign Up
                     </Link>
                   </Form.Item>
                 </Form>
