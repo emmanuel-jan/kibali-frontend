@@ -1,0 +1,28 @@
+.login-form-forgot {
+  float: right;
+}
+.center-div{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inherit-height{
+  height: 100%;
+}
+
+.login-bg{
+  background-image: url(../src/assets/images/bg1.svg);
+}
+
+.registration-bg{
+  background-image: url(../src/assets/images/bg4.svg);
+}
+
+.forgotpassword-bg{
+  background-image: url(../src/assets/images/pic1.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
