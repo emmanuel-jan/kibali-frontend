@@ -26,3 +26,9 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.gap_container{
+  gap: 1rem;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

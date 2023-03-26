@@ -1,13 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Layout, Col, Row, Form, Button, Input, Typography, Select } from "antd";
+import {
+  Layout,
+  Col,
+  Row,
+  Form,
+  Button,
+  Input,
+  Typography,
+  Select,
+} from "antd";
 import {
   LockOutlined,
   UserOutlined,
   DingtalkOutlined,
-  LoginOutlined,
   MailOutlined,
-  GlobalOutlined
+  GlobalOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
@@ -24,17 +32,10 @@ const validateMessages = {
 
 const RegistrationPage = (props: any) => {
 
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select defaultValue={"+254"} style={{ width: 100 }}>
-        <Option value="+254">+254</Option>
-      </Select>
-    </Form.Item>
-  );
-
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
+
   return (
     <Layout style={{ height: "100dvh" }}>
       <Header style={{ backgroundColor: "#800080" }}>
@@ -49,11 +50,11 @@ const RegistrationPage = (props: any) => {
       </Header>
       <Content className="inherit-height">
         <Row className="inherit-height" justify="center">
-        <Col className="registration-bg" xs={0} sm={0} md={12} lg={12}></Col>
+          <Col className="registration-bg" xs={0} sm={0} md={12} lg={12}></Col>
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title level={4} type="secondary" style={{color: "#8B008B"}}>
+                <Title level={4} type="secondary" style={{ color: "#8B008B" }}>
                   <GlobalOutlined />
                   &nbsp; Lets Get You Setup!
                 </Title>
@@ -72,6 +73,22 @@ const RegistrationPage = (props: any) => {
                     ]}
                   >
                     <Input prefix={<UserOutlined />} placeholder="John Doe" />
+                  </Form.Item>
+                  <Form.Item
+                    name="category"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Register as Instructor/Parent"
+                      options={[
+                        { value: "PARENT", label: "Parent" },
+                        { value: "INSTRUCTOR", label: "Instructor" },
+                      ]}
+                    />
                   </Form.Item>
                   <Form.Item
                     name="email"
@@ -96,9 +113,8 @@ const RegistrationPage = (props: any) => {
                     ]}
                   >
                     <Input
-                      addonBefore={prefixSelector}
                       style={{ width: "100%" }}
-                      placeholder="700444777"
+                      placeholder="0700444777"
                     />
                   </Form.Item>
                   <Form.Item
@@ -140,7 +156,7 @@ const RegistrationPage = (props: any) => {
                     </Button>
                   </Form.Item>
                   <hr />
-                  <Form.Item style={{textAlign:"center"}}>
+                  <Form.Item style={{ textAlign: "center" }}>
                     Already have an account?&nbsp;
                     <Link to="/login" style={{ color: "#8B008B" }}>
                       Log in

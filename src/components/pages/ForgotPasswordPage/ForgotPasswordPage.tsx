@@ -13,9 +13,9 @@ const { Header, Content } = Layout;
 const { Title, Text } = Typography;
 
 const validateMessages = {
-  required: "${label} is required!",
+  required: "Your ${label} is required!",
   types: {
-    email: "${label} is not a valid email!",
+    email: "Your ${label} is not a valid email!",
   },
 };
 
