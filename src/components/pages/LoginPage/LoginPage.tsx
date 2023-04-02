@@ -25,7 +25,15 @@ const LoginPage = (props: any) => {
   };
   return (
     <Layout style={{ height: "100dvh" }}>
-      <Header style={{ backgroundColor: "#800080" }}>
+      <Header
+        style={{
+          backgroundColor: "#800080",
+          padding: 5,
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+        }}
+      >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={24} lg={24}>
             <Title style={{ margin: 0, paddingTop: "10px", color: "white" }}>
@@ -88,13 +96,14 @@ const LoginPage = (props: any) => {
                       Log in
                     </Button>
                   </Form.Item>
-                  <Form.Item style={{textAlign:"center"}}>
-                    Or&nbsp;<Link to="/forgot-password" style={{ color: "#8B008B" }}>
-                        Forgot password?
+                  <Form.Item style={{ textAlign: "center" }}>
+                    Or&nbsp;
+                    <Link to="/forgot-password" style={{ color: "#8B008B" }}>
+                      Forgot password?
                     </Link>
                   </Form.Item>
                   <hr />
-                  <Form.Item style={{textAlign:"center"}}>
+                  <Form.Item style={{ textAlign: "center" }}>
                     Don't have an account?&nbsp;
                     <Link to="/registration" style={{ color: "#8B008B" }}>
                       Sign Up
