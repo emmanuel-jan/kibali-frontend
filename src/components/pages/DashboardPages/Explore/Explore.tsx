@@ -30,33 +30,35 @@ const Explore = (props: any) => {
     <>
       <Row justify="center" className="gap_container">
         <Col xs={20} sm={20} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Free
-                  </Text>
-                </>
+          <Link to="/panel/video-detail/1">
+            <Card
+              hoverable
+              cover={
+                <img
+                  alt="example"
+                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                />
               }
-            />
-          </Card>
+              actions={[
+                <SettingOutlined key="setting" />,
+                <EditOutlined key="edit" />,
+                <EllipsisOutlined key="ellipsis" />,
+              ]}
+            >
+              <Meta
+                avatar={<Avatar icon={<UserOutlined />} />}
+                title="Economics for beginners - the best approach!"
+                description={
+                  <>
+                    <Text type="secondary">Jim Gordon</Text>
+                    <Text type="secondary" style={{ float: "right" }}>
+                      Free
+                    </Text>
+                  </>
+                }
+              />
+            </Card>
+          </Link>
         </Col>
         <Col xs={20} sm={20} md={7} lg={7}>
           <Card

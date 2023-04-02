@@ -87,14 +87,16 @@ const LoginPage = (props: any) => {
                     />
                   </Form.Item>
                   <Form.Item>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      block
-                      style={{ backgroundColor: "#8B008B" }}
-                    >
-                      Log in
-                    </Button>
+                    <Link to="/panel">
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        block
+                        style={{ backgroundColor: "#8B008B" }}
+                      >
+                        Log in
+                      </Button>
+                    </Link>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
