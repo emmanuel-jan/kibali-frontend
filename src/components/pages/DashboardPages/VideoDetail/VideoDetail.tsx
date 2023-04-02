@@ -158,7 +158,7 @@ const VideoDetail = (props: any) => {
         <Col xs={24} sm={24} md={15} lg={15}>
           <VideojsPlayer options={videoJsOptions} onReady={handlePlayerReady} />
           <Title level={3} style={{ margin: 0, padding: 0 }}>
-            Begins Guide to Economics
+            Beginners Guide to Economics
           </Title>
           <div style={{ padding: "10px" }}>
             <Text>
