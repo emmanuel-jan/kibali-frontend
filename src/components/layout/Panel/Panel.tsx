@@ -7,6 +7,7 @@ import {
   EditOutlined,
   EllipsisOutlined,
   SettingOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -19,10 +20,29 @@ import {
   Avatar,
   Space,
 } from "antd";
+import { Link, Outlet } from "react-router-dom";
 
 const { Title, Text } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 const { Meta } = Card;
+
+function getItem(label: any, key: any, icon: any){
+  return{
+    key,
+    icon,
+    label
+  }
+}
+
+const items = [
+  getItem(<Link to="">Explore</Link>, "explore", <HomeOutlined/>),
+  getItem(<Link to="courses">My Courses</Link>, "courses", <HomeOutlined/>),
+  getItem(<Link to="user-profile">Profile</Link>, "profile", <HomeOutlined/>),
+  getItem(<Link to="manage-content">My Content</Link>, "content", <HomeOutlined/>),
+  // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
+  getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <HomeOutlined/>),
+  getItem(<Link to="privacy">Privacy</Link>, "privacy", <HomeOutlined/>),
+]
 
 const Panel = (props: any) => {
   const {
@@ -64,196 +84,12 @@ const Panel = (props: any) => {
           <Menu
             style={{ backgroundColor: "#800080", color: "#DAA520" }}
             mode="inline"
-            items={[
-              UserOutlined,
-              VideoCameraOutlined,
-              UploadOutlined,
-              UserOutlined,
-            ].map((icon, index) => ({
-              key: String(index + 1),
-              icon: React.createElement(icon),
-              label: `nav ${index + 1}`,
-            }))}
+            items={items}
           />
         </Sider>
         <Layout>
           <Content style={{}}>
-            <Row justify="center" className="gap_container">
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Ksh. 150
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Ksh. 2500
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-              <Col xs={20} sm={20} md={7} lg={7}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Economics for beginners - the best approach!"
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Ksh. 3000
-                        </Text>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-            </Row>
+           <Outlet/>
           </Content>
         </Layout>
       </Layout>
