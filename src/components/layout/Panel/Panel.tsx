@@ -8,6 +8,11 @@ import {
   EllipsisOutlined,
   SettingOutlined,
   HomeOutlined,
+  CompassOutlined,
+  BookOutlined,
+  UsergroupAddOutlined,
+  ContactsOutlined,
+  AuditOutlined
 } from "@ant-design/icons";
 import {
   Layout,
@@ -35,14 +40,14 @@ function getItem(label: any, key: any, icon: any){
 }
 
 const items = [
-  getItem(<Link to="">Explore</Link>, "explore", <HomeOutlined/>),
-  getItem(<Link to="courses">My Courses</Link>, "courses", <HomeOutlined/>),
-  getItem(<Link to="user-profile">Profile</Link>, "profile", <HomeOutlined/>),
-  getItem(<Link to="manage-content">Manage Content</Link>, "content", <HomeOutlined/>),
-  getItem(<Link to="manage-student">Manage Students</Link>, "student", <HomeOutlined/>),
+  getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+  getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
+  // getItem(<Link to="user-profile">Profile</Link>, "profile", <UserOutlined />),
+  getItem(<Link to="manage-content">Manage Content</Link>, "content", <VideoCameraOutlined />),
+  // getItem(<Link to="manage-student">Manage Students</Link>, "student", <UsergroupAddOutlined />),
   // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
-  getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <HomeOutlined/>),
-  getItem(<Link to="privacy">Privacy</Link>, "privacy", <HomeOutlined/>),
+  // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
+  // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
 ]
 
 const Panel = (props: any) => {

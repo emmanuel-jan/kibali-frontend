@@ -122,6 +122,21 @@ const RegistrationPage = (props: any) => {
                     <Input style={{ width: "100%" }} placeholder="0700444777" />
                   </Form.Item>
                   <Form.Item
+                    name="country"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Choose your country"
+                      options={[
+                        { value: "KENYA", label: "KENYA" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
                     name="password"
                     rules={[
                       {

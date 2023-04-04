@@ -7,6 +7,7 @@ import {
   Explore,
   ForgotPasswordPage,
   LoginPage,
+  ManageContent,
   MyCourses,
   PanelPage,
   RegistrationPage,
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<Explore />} />
           <Route path="courses" element={<MyCourses />} />
           <Route path="video-detail/:id" element={<VideoDetail/>} />
+          <Route path="manage-content" element={<ManageContent/>}/>
         </Route>
       </Routes>
     </>
