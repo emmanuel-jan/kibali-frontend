@@ -45,7 +45,7 @@ const items: TabsProps["items"] = [
       <>
         <Row justify="center" style={{height:"100vh"}}>
           <Col xs={24} sm={24} md={16} lg={16}>
-          <Title level={4} style={{ color: "#8B008B" }}>
+          <Title level={4} style={{ color: "#2b243f" }}>
           <PushpinOutlined />
                   &nbsp; Get Your Content Out There!
                 </Title>
@@ -123,7 +123,7 @@ const items: TabsProps["items"] = [
                   type="primary"
                   htmlType="submit"
                   block
-                  style={{ backgroundColor: "#8B008B" }}
+                  style={{ backgroundColor: "#0a0050" }}
                 >
                   Publish
                 </Button>

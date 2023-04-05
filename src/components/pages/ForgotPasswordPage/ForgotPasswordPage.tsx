@@ -27,7 +27,7 @@ const ForgotPasswordPage = (props: any) => {
     <Layout style={{ height: "100dvh" }}>
       <Header
         style={{
-          backgroundColor: "#800080",
+          backgroundColor: "#0a0050",
           padding: 5,
           position: "sticky",
           top: 0,
@@ -87,21 +87,21 @@ const ForgotPasswordPage = (props: any) => {
                       type="primary"
                       htmlType="submit"
                       block
-                      style={{ backgroundColor: "#8B008B" }}
+                      style={{ backgroundColor: "#0a0050" }}
                     >
                       Reset Password
                     </Button>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
-                    <Link to="/login" style={{ color: "#8B008B" }}>
+                    <Link to="/login" style={{ color: "#0a0050" }}>
                       Log in
                     </Link>
                   </Form.Item>
                   <hr />
                   <Form.Item style={{ textAlign: "center" }}>
                     Don't have an account?&nbsp;
-                    <Link to="/registration" style={{ color: "#8B008B" }}>
+                    <Link to="/registration" style={{ color: "#0a0050" }}>
                       Sign up
                     </Link>
                   </Form.Item>

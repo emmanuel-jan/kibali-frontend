@@ -58,7 +58,7 @@ const Panel = (props: any) => {
     <Layout>
       <Header
         style={{
-          backgroundColor: "#800080",
+          backgroundColor: "#0a0050",
           padding: 5,
           position: "sticky",
           top: 0,
@@ -76,7 +76,7 @@ const Panel = (props: any) => {
       </Header>
       <Layout>
         <Sider
-          style={{ backgroundColor: "#800080" }}
+          style={{ backgroundColor: "#0a0050" }}
           breakpoint="lg"
           collapsedWidth="0"
           onBreakpoint={(broken) => {
@@ -88,13 +88,13 @@ const Panel = (props: any) => {
         >
           <div className="logo" />
           <Menu
-            style={{ backgroundColor: "#800080", color: "#DAA520" }}
+            style={{ backgroundColor: "#0a0050", color: "#fdfcfa" }}
             mode="inline"
             items={items}
           />
         </Sider>
         <Layout>
-          <Content style={{}}>
+          <Content>
            <Outlet/>
           </Content>
         </Layout>

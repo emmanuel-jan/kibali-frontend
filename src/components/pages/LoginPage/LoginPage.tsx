@@ -27,7 +27,7 @@ const LoginPage = (props: any) => {
     <Layout style={{ height: "100dvh" }}>
       <Header
         style={{
-          backgroundColor: "#800080",
+          backgroundColor: "#0a0050",
           padding: 5,
           position: "sticky",
           top: 0,
@@ -48,7 +48,7 @@ const LoginPage = (props: any) => {
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title level={4} style={{ color: "#8B008B" }}>
+                <Title level={4} style={{ color: "#0a0050" }}>
                   <LoginOutlined />
                   &nbsp; Log in to your Kibali account
                 </Title>
@@ -92,7 +92,7 @@ const LoginPage = (props: any) => {
                         type="primary"
                         htmlType="submit"
                         block
-                        style={{ backgroundColor: "#8B008B" }}
+                        style={{ backgroundColor: "#0a0050" }}
                       >
                         Log in
                       </Button>
@@ -100,14 +100,14 @@ const LoginPage = (props: any) => {
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
-                    <Link to="/forgot-password" style={{ color: "#8B008B" }}>
+                    <Link to="/forgot-password" style={{ color: "#0a0050" }}>
                       Forgot password?
                     </Link>
                   </Form.Item>
                   <hr />
                   <Form.Item style={{ textAlign: "center" }}>
                     Don't have an account?&nbsp;
-                    <Link to="/registration" style={{ color: "#8B008B" }}>
+                    <Link to="/registration" style={{ color: "#0a0050" }}>
                       Sign Up
                     </Link>
                   </Form.Item>
