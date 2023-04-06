@@ -13,11 +13,17 @@
 }
 
 .login-bg{
-  background-image: url(../src/assets/images/bg1.svg);
+  background-image: url(../src/assets/images/human2.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .registration-bg{
-  background-image: url(../src/assets/images/bg4.svg);
+  background-image: url(../src/assets/images/human1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .forgotpassword-bg{
