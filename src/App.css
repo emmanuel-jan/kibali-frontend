@@ -38,3 +38,15 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+.thelinks{
+  color:#0a0050;
+}
+
+.thelinks:hover{
+  color:#fd530c
+}
+
+.theStyles{
+  border-color: #fd530c;
+}

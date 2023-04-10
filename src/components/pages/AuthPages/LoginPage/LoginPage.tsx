@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Layout, Col, Row, Form, Button, Input, Typography } from "antd";
+import { Layout, Col, Row, Form, Button, Input, Typography, notification } from "antd";
 import {
   LockOutlined,
   UserOutlined,
@@ -8,9 +8,14 @@ import {
   LoginOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../../features/auth/authSlice";
+import { useLoginMutation } from "../../../../features/auth/authApiSlice";
 
 const { Header, Content } = Layout;
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const validateMessages = {
   required: "Your ${label} is required!",
@@ -19,9 +24,45 @@ const validateMessages = {
   },
 };
 
-const ForgotPasswordPage = (props: any) => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+const LoginPage = (props: any) => {
+  const userRef = useRef<HTMLInputElement>(null);
+  const errRef = useRef<HTMLInputElement>(null);
+  const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+  let noficationMsg: String;
+
+  const openNotification = () => {
+    notification.error({
+      message: "Ooops, something went wrong!",
+      description: `${noficationMsg}`,
+      placement:"topLeft",
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
+  };
+
+  useEffect(() => {
+    userRef.current?.focus();
+  }, []);
+
+  const onFinish = async (values: any) => {
+    try {
+      const userData = await login(values).unwrap();
+      dispatch(setCredentials({ ...userData }));
+      navigate("/panel");
+    } catch (error: any) {
+      if (error?.data?.detail) {
+        noficationMsg = `${error?.status} error - ${error?.data?.detail} NB: Check your password and username and try again`;
+        openNotification();
+      } else {
+        noficationMsg = `${error?.status} error - Try again later`;
+        openNotification();
+      }
+    }
   };
   return (
     <Layout style={{ height: "100dvh" }}>
@@ -48,19 +89,9 @@ const ForgotPasswordPage = (props: any) => {
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title
-                  style={{ textAlign: "center", margin: 0, padding: 0 }}
-                  level={4}
-                  type="secondary"
-                >
-                  Forgot Password?
-                </Title>
-                <Title
-                  level={5}
-                  style={{ textAlign: "center", margin: 0, padding: "10px" }}
-                  type="secondary"
-                >
-                  We can help with that, all we need is your email address
+                <Title level={4} style={{ color: "#0a0050" }}>
+                  <LoginOutlined />
+                  &nbsp; Log in to your Kibali account
                 </Title>
                 <Form
                   name="normal_login"
@@ -82,46 +113,55 @@ const ForgotPasswordPage = (props: any) => {
                       placeholder="johndoe@etc.com"
                     />
                   </Form.Item>
+                  <Form.Item
+                    name="password"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input.Password
+                      prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  </Form.Item>
                   <Form.Item>
                     <Button
                       type="primary"
                       htmlType="submit"
                       block
                       style={{ backgroundColor: "#0a0050" }}
+                      loading = {isLoading}
                     >
-                      Reset Password
+                      Log in
                     </Button>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
-                    <Link to="/login" style={{ color: "#0a0050" }}>
-                      Log in
+                    <Link to="/forgot-password" className="thelinks"  style={{  }}>
+                      Forgot password?
                     </Link>
                   </Form.Item>
                   <hr />
                   <Form.Item style={{ textAlign: "center" }}>
                     Don't have an account?&nbsp;
-                    <Link to="/registration" style={{ color: "#0a0050" }}>
-                      Sign up
+                    <Link to="/registration" className="thelinks">
+                      Sign Up
                     </Link>
                   </Form.Item>
                 </Form>
               </Col>
             </Row>
           </Col>
-          <Col
-            className="forgotpassword-bg"
-            xs={0}
-            sm={0}
-            md={12}
-            lg={12}
-          ></Col>
+          <Col className="login-bg" xs={0} sm={0} md={12} lg={12}></Col>
         </Row>
       </Content>
     </Layout>
   );
 };
 
-ForgotPasswordPage.propTypes = {};
+LoginPage.propTypes = {};
 
-export default ForgotPasswordPage;
+export default LoginPage;

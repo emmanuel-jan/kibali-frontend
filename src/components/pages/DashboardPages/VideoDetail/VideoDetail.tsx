@@ -36,6 +36,8 @@ import VirtualList from "rc-virtual-list";
 import VideojsPlayer from "../../../VideojsPlayer/VideojsPlayer";
 import videojs from "video.js";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useParams } from "react-router-dom";
+import { useGetVideosByIdQuery } from "../../../../features/videos/videosApiSlice";
 
 interface UserItem {
   email: string;
@@ -103,6 +105,10 @@ const VideoDetail = (props: any) => {
   const playerRef = React.useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<DataType[]>([]);
+  const {id} = useParams();
+  const {data:videoData} = useGetVideosByIdQuery(id);
+
+  console.log(videoData);
 
   const loadMoreData = () => {
     if (loading) {
@@ -133,7 +139,7 @@ const VideoDetail = (props: any) => {
     fluid: true,
     sources: [
       {
-        src: "http://vjs.zencdn.net/v/oceans.mp4",
+        src: `https://d2de5vvhbdytdl.cloudfront.net/videos/${videoData?.video_file_name.replace(/ /g,"_")}`,
         type: "video/mp4",
       },
     ],
@@ -158,7 +164,7 @@ const VideoDetail = (props: any) => {
         <Col xs={24} sm={24} md={15} lg={15}>
           <VideojsPlayer options={videoJsOptions} onReady={handlePlayerReady} />
           <Title level={3} style={{ margin: 0, padding: 0 }}>
-            Beginners Guide to Economics
+            {videoData?.title}
           </Title>
           <div style={{ padding: "10px" }}>
             <Text>

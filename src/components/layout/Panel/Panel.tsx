@@ -12,7 +12,8 @@ import {
   BookOutlined,
   UsergroupAddOutlined,
   ContactsOutlined,
-  AuditOutlined
+  AuditOutlined,
+  SolutionOutlined
 } from "@ant-design/icons";
 import {
   Layout,
@@ -25,35 +26,41 @@ import {
   Avatar,
   Space,
 } from "antd";
-import { Link, Outlet } from "react-router-dom";
+import { useLocation, Navigate, Link, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../../features/auth/authSlice";
 
 const { Title, Text } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 const { Meta } = Card;
 
-function getItem(label: any, key: any, icon: any){
-  return{
+function getItem(label: any, key: any, icon: any) {
+  return {
     key,
     icon,
-    label
-  }
+    label,
+  };
 }
 
 const items = [
   getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
   getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
   // getItem(<Link to="user-profile">Profile</Link>, "profile", <UserOutlined />),
-  getItem(<Link to="manage-content">Manage Content</Link>, "content", <VideoCameraOutlined />),
+  getItem(
+    <Link to="manage-content">Manage Content</Link>,
+    "content",
+    <VideoCameraOutlined />
+  ),
+  getItem(<Link to="instructor-registration">Instructor Application</Link>, "instructor-reg", <SolutionOutlined />),
   // getItem(<Link to="manage-student">Manage Students</Link>, "student", <UsergroupAddOutlined />),
   // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
   // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
   // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
-]
+];
 
 const Panel = (props: any) => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const token = useSelector(selectCurrentToken);
+  const location = useLocation();
   return (
     <Layout>
       <Header
@@ -95,7 +102,11 @@ const Panel = (props: any) => {
         </Sider>
         <Layout>
           <Content>
-           <Outlet/>
+            {token ? (
+              <Outlet />
+            ) : (
+              <Navigate to="/login" state={{ from: location }} replace />
+            )}
           </Content>
         </Layout>
       </Layout>

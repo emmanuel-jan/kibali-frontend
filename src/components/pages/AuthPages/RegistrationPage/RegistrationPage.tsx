@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Layout,
@@ -9,6 +9,8 @@ import {
   Input,
   Typography,
   Select,
+  Alert,
+  notification,
 } from "antd";
 import {
   LockOutlined,
@@ -18,6 +20,7 @@ import {
   GlobalOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { useRegisterUserMutation } from "../../../../features/auth/registerUserApiSlice"; 
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -31,8 +34,69 @@ const validateMessages = {
 };
 
 const RegistrationPage = (props: any) => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const [register, { isLoading }] = useRegisterUserMutation();
+  const [activationMsg, setActivationMsg] = useState<any>("");
+  const [form] = Form.useForm();
+  let noficationMsg: String;
+
+  const openNotificationSuccess = () => {
+    notification.success({
+      message: "Hey there!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+      duration: 6.5
+    });
+  };
+
+  const openNotification = () => {
+    notification.error({
+      message: "Ooops, something went wrong!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
+  };
+
+  const onFinish = async (values: any) => {
+    if (values.password !== values.re_password) {
+      noficationMsg = "Your passwords don't match";
+      openNotification();
+    } else {
+      try {
+        const userDetails = await register(values).unwrap();
+        console.log("Received values of form: ", values);
+        console.log(userDetails);
+        noficationMsg =
+          "We've sent an activation link to your email. Check your email and click on the activation link";
+        openNotificationSuccess();
+        form.resetFields();
+      } catch (error: any) {
+        console.log(error);
+        if (error?.data?.email) {
+          if (error?.data?.email[0]) {
+            noficationMsg = `${error?.status} error - ${error?.data?.email[0]}`;
+            openNotification();
+          }
+        }
+        if (error?.data?.password) {
+          if (error?.data?.password[0]) {
+            noficationMsg = `${error?.data?.password[0]}`;
+            openNotification();
+          }
+          if (error?.data?.password[1]) {
+            noficationMsg = `${error?.data?.password[1]}`;
+            openNotification();
+          }
+          if (error?.data?.password[2]) {
+            noficationMsg = `${error?.data?.password[2]}`;
+            openNotification();
+          }
+        }
+      }
+    }
   };
 
   return (
@@ -65,37 +129,33 @@ const RegistrationPage = (props: any) => {
                   <GlobalOutlined />
                   &nbsp; Lets Get You Setup!
                 </Title>
+                <div style={{ padding: "10px" }}>{activationMsg}</div>
                 <Form
+                  form={form}
                   name="normal_login"
                   className="login-form"
                   onFinish={onFinish}
                   validateMessages={validateMessages}
                 >
                   <Form.Item
-                    name="name"
+                    name="first_name"
                     rules={[
                       {
                         required: true,
                       },
                     ]}
                   >
-                    <Input prefix={<UserOutlined />} placeholder="John Doe" />
+                    <Input prefix={<UserOutlined />} placeholder="John" />
                   </Form.Item>
                   <Form.Item
-                    name="category"
+                    name="last_name"
                     rules={[
                       {
                         required: true,
                       },
                     ]}
                   >
-                    <Select
-                      placeholder="Register as Instructor/Parent"
-                      options={[
-                        { value: "PARENT", label: "Parent" },
-                        { value: "INSTRUCTOR", label: "Instructor" },
-                      ]}
-                    />
+                    <Input prefix={<UserOutlined />} placeholder="Doe" />
                   </Form.Item>
                   <Form.Item
                     name="email"
@@ -131,9 +191,7 @@ const RegistrationPage = (props: any) => {
                   >
                     <Select
                       placeholder="Choose your country"
-                      options={[
-                        { value: "KENYA", label: "KENYA" },
-                      ]}
+                      options={[{ value: "KENYA", label: "KENYA" }]}
                     />
                   </Form.Item>
                   <Form.Item
@@ -151,7 +209,7 @@ const RegistrationPage = (props: any) => {
                     />
                   </Form.Item>
                   <Form.Item
-                    name="confirm-password"
+                    name="re_password"
                     rules={[
                       {
                         required: true,
@@ -170,6 +228,7 @@ const RegistrationPage = (props: any) => {
                       htmlType="submit"
                       block
                       style={{ backgroundColor: "#0a0050" }}
+                      loading={isLoading}
                     >
                       Create Account
                     </Button>
@@ -177,7 +236,7 @@ const RegistrationPage = (props: any) => {
                   <hr />
                   <Form.Item style={{ textAlign: "center" }}>
                     Already have an account?&nbsp;
-                    <Link to="/login" style={{ color: "#0a0050" }}>
+                    <Link to="/login" className="thelinks">
                       Log in
                     </Link>
                   </Form.Item>

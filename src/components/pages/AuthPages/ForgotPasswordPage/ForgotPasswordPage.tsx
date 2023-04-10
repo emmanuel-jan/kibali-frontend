@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Layout, Col, Row, Form, Button, Input, Typography } from "antd";
+import { Layout, Col, Row, Form, Button, Input, Typography, notification } from "antd";
 import {
   LockOutlined,
   UserOutlined,
@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom";
 
 const { Header, Content } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const validateMessages = {
   required: "Your ${label} is required!",
@@ -19,7 +19,30 @@ const validateMessages = {
   },
 };
 
-const LoginPage = (props: any) => {
+const ForgotPasswordPage = (props: any) => {
+  const [form] = Form.useForm();
+  let noficationMsg: String;
+
+  const openNotificationSuccess = () => {
+    notification.success({
+      message: "Hey there!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+      duration: 6.5
+    });
+  };
+
+  const openNotification = () => {
+    notification.error({
+      message: "Ooops, something went wrong!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
+  };
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -48,9 +71,19 @@ const LoginPage = (props: any) => {
           <Col className="inherit-height" xs={20} sm={20} md={12} lg={12}>
             <Row justify="center" className="center-div">
               <Col xs={24} sm={24} md={18} lg={18}>
-                <Title level={4} style={{ color: "#0a0050" }}>
-                  <LoginOutlined />
-                  &nbsp; Log in to your Kibali account
+                <Title
+                  style={{ textAlign: "center", margin: 0, padding: 0 }}
+                  level={4}
+                  type="secondary"
+                >
+                  Forgot Password?
+                </Title>
+                <Title
+                  level={5}
+                  style={{ textAlign: "center", margin: 0, padding: "10px" }}
+                  type="secondary"
+                >
+                  We can help with that, all we need is your email address
                 </Title>
                 <Form
                   name="normal_login"
@@ -72,56 +105,46 @@ const LoginPage = (props: any) => {
                       placeholder="johndoe@etc.com"
                     />
                   </Form.Item>
-                  <Form.Item
-                    name="password"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
-                  >
-                    <Input.Password
-                      prefix={<LockOutlined className="site-form-item-icon" />}
-                      type="password"
-                      placeholder="Password"
-                    />
-                  </Form.Item>
                   <Form.Item>
-                    <Link to="/panel">
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        block
-                        style={{ backgroundColor: "#0a0050" }}
-                      >
-                        Log in
-                      </Button>
-                    </Link>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      style={{ backgroundColor: "#0a0050" }}
+                    >
+                      Reset Password
+                    </Button>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
-                    <Link to="/forgot-password" style={{ color: "#0a0050" }}>
-                      Forgot password?
+                    <Link to="/login" className="thelinks">
+                      Log in
                     </Link>
                   </Form.Item>
                   <hr />
                   <Form.Item style={{ textAlign: "center" }}>
                     Don't have an account?&nbsp;
-                    <Link to="/registration" style={{ color: "#0a0050" }}>
-                      Sign Up
+                    <Link to="/registration" className="thelinks">
+                      Sign up
                     </Link>
                   </Form.Item>
                 </Form>
               </Col>
             </Row>
           </Col>
-          <Col className="login-bg" xs={0} sm={0} md={12} lg={12}></Col>
+          <Col
+            className="forgotpassword-bg"
+            xs={0}
+            sm={0}
+            md={12}
+            lg={12}
+          ></Col>
         </Row>
       </Content>
     </Layout>
   );
 };
 
-LoginPage.propTypes = {};
+ForgotPasswordPage.propTypes = {};
 
-export default LoginPage;
+export default ForgotPasswordPage;

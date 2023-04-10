@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   AndroidOutlined,
@@ -10,12 +10,31 @@ import {
   PushpinOutlined,
   SettingOutlined,
   EllipsisOutlined,
-  EditOutlined
+  EditOutlined,
 } from "@ant-design/icons";
-import { Tabs, Row, Col, Form, Input, Button, Select, Upload, Typography, Card, Avatar } from "antd";
+import {
+  Tabs,
+  Row,
+  Col,
+  Form,
+  Input,
+  Button,
+  Select,
+  Upload,
+  Typography,
+  Card,
+  Avatar,
+  notification,
+} from "antd";
 import type { TabsProps } from "antd";
 import { Link } from "react-router-dom";
 import Explore from "../Explore/Explore";
+import { useGetInstructorInfoQuery } from "../../../../features/instructors/instructorsApiSlice";
+import {
+  useCreateVideoMutation,
+  useGetVideoCategoriesQuery,
+  useGetVideosQuery,
+} from "../../../../features/videos/videosApiSlice";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -26,10 +45,6 @@ const { Meta } = Card;
 
 const { TextArea } = Input;
 
-const onFinish = (values: any) => {
-  console.log("Received values of form: ", values);
-};
-
 const validateMessages = {
   required: "Your ${label} is required!",
   types: {
@@ -37,35 +52,94 @@ const validateMessages = {
   },
 };
 
-const items: TabsProps["items"] = [
-  {
-    key: "1",
-    label: `Publish Content`,
-    children: (
-      <>
-        <Row justify="center" style={{height:"100vh"}}>
-          <Col xs={24} sm={24} md={16} lg={16}>
-          <Title level={4} style={{ color: "#2b243f" }}>
-          <PushpinOutlined />
-                  &nbsp; Get Your Content Out There!
-                </Title>
-            <Form
-              name="normal_login"
-              className="login-form"
-              onFinish={onFinish}
-              validateMessages={validateMessages}
-            >
-              <Form.Item
-                name="topic"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
+const ManageContent = (props: any) => {
+  const [selectedFile, setSelectedFile] = useState<any>("");
+  const { data: instructorData } = useGetInstructorInfoQuery(1);
+  const { data: categoryData } = useGetVideoCategoriesQuery(1);
+  const { data: videosList } = useGetVideosQuery(1);
+  const [form] = Form.useForm();
+  const [video, { isLoading }] = useCreateVideoMutation();
+  let noficationMsg: String;
+
+  console.log(videosList);
+
+  const changeHandler = (event: any) => {
+    setSelectedFile(event.target.files[0]);
+    console.log(event.target.files[0]);
+  };
+
+  const openNotificationSuccess = () => {
+    notification.success({
+      message: "Good News!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+      duration: 6.5,
+    });
+  };
+
+  const openNotification = () => {
+    notification.error({
+      message: "Ooops, something went wrong!",
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
+  };
+
+  const onFinish = async (values: any) => {
+    console.log("Received values of form: ", values);
+
+    const data = new FormData();
+    data.append("title", values.title);
+    data.append("description", values.description);
+    data.append("video", selectedFile);
+    data.append("video_category", "1");
+    data.append("instructor", instructorData[0]?.id);
+
+    try {
+      const res = await video(data).unwrap();
+      console.log(res);
+      noficationMsg = "Your video has been posted successfully";
+      openNotificationSuccess();
+      form.resetFields();
+    } catch (error: any) {
+      console.log(error);
+      openNotification();
+    }
+  };
+
+  const items: TabsProps["items"] = [
+    {
+      key: "1",
+      label: `Publish Content`,
+      children: (
+        <>
+          <Row justify="center" style={{ height: "100vh" }}>
+            <Col xs={24} sm={24} md={16} lg={16}>
+              <Title level={4} style={{ color: "#2b243f" }}>
+                <PushpinOutlined />
+                &nbsp; Get Your Content Out There!
+              </Title>
+              <Form
+                form={form}
+                name="normal_login"
+                className="login-form"
+                onFinish={onFinish}
+                validateMessages={validateMessages}
               >
-                <Input placeholder="Climate Change" />
-              </Form.Item>
-              <Form.Item
+                <Form.Item
+                  name="title"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input placeholder="Video Title" />
+                </Form.Item>
+                {/* <Form.Item
                 name="category"
                 rules={[
                   {
@@ -81,8 +155,8 @@ const items: TabsProps["items"] = [
                     { value: "CHEMISTRY", label: "CHEMISTRY" },
                   ]}
                 />
-              </Form.Item>
-              <Form.Item
+              </Form.Item> */}
+                {/* <Form.Item
                 name="category"
                 rules={[
                   {
@@ -99,233 +173,98 @@ const items: TabsProps["items"] = [
                     { value: "FORM 4", label: "FORM 4" },
                   ]}
                 />
-              </Form.Item>
-              <Form.Item
-                name="description"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <TextArea rows={4} />
-              </Form.Item>
-              <Form.Item valuePropName="fileList">
-                <Upload action="/upload.do" listType="picture-card">
+              </Form.Item> */}
+                <Form.Item
+                  name="description"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <TextArea
+                    rows={4}
+                    placeholder="Video description goes here..."
+                  />
+                </Form.Item>
+                <Form.Item name="video">
+                  <input type="file" onChange={changeHandler} />
+                  {/* <Upload action="/upload.do" listType="picture-card">
                   <div>
                     <PlusOutlined />
                     <div style={{ marginTop: 8 }}>Upload</div>
                   </div>
-                </Upload>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  block
-                  style={{ backgroundColor: "#0a0050" }}
+                </Upload> */}
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    block
+                    style={{ backgroundColor: "#0a0050" }}
+                    loading={isLoading}
+                  >
+                    Publish
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
+    {
+      key: "2",
+      label: `Your Content`,
+      children: (
+        <Row
+          justify="center"
+          style={{ minHeight: "100vh" }}
+          className="gap_container"
+        >
+          {videosList?.map((video: any) => (
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Link to={`/panel/video-detail/${video?.id}`}>
+                <Card
+                  hoverable
+                  cover={
+                    <img
+                      alt="example"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    />
+                  }
+                  actions={[
+                    <SettingOutlined key="setting" />,
+                    <EditOutlined key="edit" />,
+                    <EllipsisOutlined key="ellipsis" />,
+                  ]}
                 >
-                  Publish
-                </Button>
-              </Form.Item>
-            </Form>
-          </Col>
+                  <Meta
+                    avatar={<Avatar icon={<UserOutlined />} />}
+                    title={video?.title}
+                    description={
+                      <>
+                        <Text type="secondary">Jim Gordon</Text>
+                        <Text type="secondary" style={{ float: "right" }}>
+                          Free
+                        </Text>
+                      </>
+                    }
+                  />
+                </Card>
+              </Link>
+            </Col>
+          ))}
         </Row>
-      </>
-    ),
-  },
-  {
-    key: "2",
-    label: `Your Content`,
-    children: (
-        <Row justify="center" className="gap_container">
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Link to="/panel/video-detail/1">
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt="example"
-                  src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                />
-              }
-              actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
-              ]}
-            >
-              <Meta
-                avatar={<Avatar icon={<UserOutlined />} />}
-                title="Economics for beginners - the best approach!"
-                description={
-                  <>
-                    <Text type="secondary">Jim Gordon</Text>
-                    <Text type="secondary" style={{ float: "right" }}>
-                      Free
-                    </Text>
-                  </>
-                }
-              />
-            </Card>
-          </Link>
-        </Col>
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Free
-                  </Text>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Free
-                  </Text>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Ksh. 150
-                  </Text>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Ksh. 2500
-                  </Text>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-        <Col xs={24} sm={24} md={7} lg={7}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="example"
-                src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-              />
-            }
-            actions={[
-              <SettingOutlined key="setting" />,
-              <EditOutlined key="edit" />,
-              <EllipsisOutlined key="ellipsis" />,
-            ]}
-          >
-            <Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
-              title="Economics for beginners - the best approach!"
-              description={
-                <>
-                  <Text type="secondary">Jim Gordon</Text>
-                  <Text type="secondary" style={{ float: "right" }}>
-                    Ksh. 3000
-                  </Text>
-                </>
-              }
-            />
-          </Card>
-        </Col>
-      </Row>
-    )
-  },
-//   {
-//     key: "3",
-//     label: `Tab 3`,
-//     children: `Content of Tab Pane 3`,
-//   },
-];
+      ),
+    },
+    //   {
+    //     key: "3",
+    //     label: `Tab 3`,
+    //     children: `Content of Tab Pane 3`,
+    //   },
+  ];
 
-const ManageContent = (props: any) => {
   return (
     <Row justify="center" style={{ height: "100%" }}>
       <Col xs={20} sm={20} md={20} lg={20}>
