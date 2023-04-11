@@ -22,6 +22,7 @@ import {
 } from "antd";
 import { Link } from "react-router-dom";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
+import videoImg from "../../../../assets/images/video.svg"
 
 const { Title, Text } = Typography;
 const { Meta } = Card;
@@ -40,7 +41,8 @@ const MyCourses = (props: any) => {
                   cover={
                     <img
                       alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                      style={{padding:"25px"}}
+                      src={videoImg}
                     />
                   }
                   actions={[

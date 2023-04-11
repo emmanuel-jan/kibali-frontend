@@ -95,9 +95,10 @@ const Panel = (props: any) => {
         >
           <div className="logo" />
           <Menu
-            style={{ backgroundColor: "#0a0050", color: "#fdfcfa" }}
+            style={{ backgroundColor: "#0a0050" }}
             mode="inline"
             items={items}
+            className="menuText"
           />
         </Sider>
         <Layout>

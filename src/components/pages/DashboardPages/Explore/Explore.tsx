@@ -31,6 +31,7 @@ import {
 import type { TabsProps } from "antd";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
+import videoImg from "../../../../assets/images/video.svg";
 
 const { Search } = Input;
 const onChange = (key: string) => {
@@ -44,7 +45,7 @@ const { Meta } = Card;
 
 const Explore = (props: any) => {
   const { data: userInfo } = useGetUserInfoQuery(1);
-  const { data: videosList } = useGetVideosQuery(1);
+  const { data: videosList, isLoading } = useGetVideosQuery(1);
   console.log(userInfo);
 
   const items: TabsProps["items"] = [
@@ -59,39 +60,40 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-          {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
-              <Link to={`/panel/video-detail/${video?.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={video?.title}
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
+            {videosList?.map((video: any) => (
+              <Col xs={24} sm={24} md={7} lg={7}>
+                <Link to={`/panel/video-detail/${video?.id}`}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        style={{ padding: "25px" }}
+                        src={videoImg}
+                      />
                     }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+                    actions={[
+                      <SettingOutlined key="setting" />,
+                      <EditOutlined key="edit" />,
+                      <EllipsisOutlined key="ellipsis" />,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
+                      description={
+                        <>
+                          <Text type="secondary">Jim Gordon</Text>
+                          <Text type="secondary" style={{ float: "right" }}>
+                            Free
+                          </Text>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </>
       ),
@@ -107,39 +109,40 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-          {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
-              <Link to={`/panel/video-detail/${video?.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={video?.title}
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
+            {videosList?.map((video: any) => (
+              <Col xs={24} sm={24} md={7} lg={7}>
+                <Link to={`/panel/video-detail/${video?.id}`}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        style={{ padding: "25px" }}
+                        src={videoImg}
+                      />
                     }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+                    actions={[
+                      <SettingOutlined key="setting" />,
+                      <EditOutlined key="edit" />,
+                      <EllipsisOutlined key="ellipsis" />,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
+                      description={
+                        <>
+                          <Text type="secondary">Jim Gordon</Text>
+                          <Text type="secondary" style={{ float: "right" }}>
+                            Free
+                          </Text>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </>
       ),
@@ -155,39 +158,40 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-          {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
-              <Link to={`/panel/video-detail/${video?.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={video?.title}
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
+            {videosList?.map((video: any) => (
+              <Col xs={24} sm={24} md={7} lg={7}>
+                <Link to={`/panel/video-detail/${video?.id}`}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        style={{ padding: "25px" }}
+                        src={videoImg}
+                      />
                     }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+                    actions={[
+                      <SettingOutlined key="setting" />,
+                      <EditOutlined key="edit" />,
+                      <EllipsisOutlined key="ellipsis" />,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
+                      description={
+                        <>
+                          <Text type="secondary">Jim Gordon</Text>
+                          <Text type="secondary" style={{ float: "right" }}>
+                            Free
+                          </Text>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </>
       ),
@@ -203,39 +207,40 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-          {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
-              <Link to={`/panel/video-detail/${video?.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={video?.title}
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
+            {videosList?.map((video: any) => (
+              <Col xs={24} sm={24} md={7} lg={7}>
+                <Link to={`/panel/video-detail/${video?.id}`}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        style={{ padding: "25px" }}
+                        src={videoImg}
+                      />
                     }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+                    actions={[
+                      <SettingOutlined key="setting" />,
+                      <EditOutlined key="edit" />,
+                      <EllipsisOutlined key="ellipsis" />,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
+                      description={
+                        <>
+                          <Text type="secondary">Jim Gordon</Text>
+                          <Text type="secondary" style={{ float: "right" }}>
+                            Free
+                          </Text>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </>
       ),
@@ -251,39 +256,40 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-          {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
-              <Link to={`/panel/video-detail/${video?.id}`}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt="example"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    />
-                  }
-                  actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                  ]}
-                >
-                  <Meta
-                    avatar={<Avatar icon={<UserOutlined />} />}
-                    title={video?.title}
-                    description={
-                      <>
-                        <Text type="secondary">Jim Gordon</Text>
-                        <Text type="secondary" style={{ float: "right" }}>
-                          Free
-                        </Text>
-                      </>
+            {videosList?.map((video: any) => (
+              <Col xs={24} sm={24} md={7} lg={7}>
+                <Link to={`/panel/video-detail/${video?.id}`}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt="example"
+                        style={{ padding: "25px" }}
+                        src={videoImg}
+                      />
                     }
-                  />
-                </Card>
-              </Link>
-            </Col>
-          ))}
+                    actions={[
+                      <SettingOutlined key="setting" />,
+                      <EditOutlined key="edit" />,
+                      <EllipsisOutlined key="ellipsis" />,
+                    ]}
+                  >
+                    <Meta
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
+                      description={
+                        <>
+                          <Text type="secondary">Jim Gordon</Text>
+                          <Text type="secondary" style={{ float: "right" }}>
+                            Free
+                          </Text>
+                        </>
+                      }
+                    />
+                  </Card>
+                </Link>
+              </Col>
+            ))}
           </Row>
         </>
       ),
