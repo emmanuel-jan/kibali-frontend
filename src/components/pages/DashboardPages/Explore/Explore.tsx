@@ -8,6 +8,7 @@ import {
   EllipsisOutlined,
   SettingOutlined,
   HomeOutlined,
+  DownloadOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -21,6 +22,7 @@ import {
   Space,
   Tabs,
   Input,
+  Button,
 } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -59,6 +61,68 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
+          <Row justify="center">
+            <Col xs={24} sm={24} md={16} lg={16} className="containers">
+              <Space>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  All
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  English
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Mathematics
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Sciences
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  History
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Geography
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Business
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Computer Studies
+                </Button>
+              </Space>
+            </Col>
+          </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7}>
@@ -72,11 +136,7 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
+                  
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -108,6 +168,68 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
+          <Row justify="center">
+            <Col xs={24} sm={24} md={16} lg={16} className="containers">
+              <Space>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  All
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  English
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Mathematics
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Sciences
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  History
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Geography
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Business
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Computer Studies
+                </Button>
+              </Space>
+            </Col>
+          </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7}>
@@ -121,11 +243,7 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
+                  
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -157,6 +275,68 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
+          <Row justify="center">
+            <Col xs={24} sm={24} md={16} lg={16} className="containers">
+              <Space>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  All
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  English
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Mathematics
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Sciences
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  History
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Geography
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Business
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Computer Studies
+                </Button>
+              </Space>
+            </Col>
+          </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7}>
@@ -170,11 +350,7 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
+                 
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -206,6 +382,68 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
+          <Row justify="center">
+            <Col xs={24} sm={24} md={16} lg={16} className="containers">
+              <Space>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  All
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  English
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Mathematics
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Sciences
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  History
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Geography
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Business
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Computer Studies
+                </Button>
+              </Space>
+            </Col>
+          </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7}>
@@ -219,11 +457,7 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
+              
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -255,6 +489,68 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
+          <Row justify="center">
+            <Col xs={24} sm={24} md={16} lg={16} className="containers">
+              <Space>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  All
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  English
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Mathematics
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Sciences
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  History
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Geography
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Business
+                </Button>
+                <Button
+                  style={{ backgroundColor: "#f2d3c7" }}
+                  shape="round"
+                  size="small"
+                >
+                  Computer Studies
+                </Button>
+              </Space>
+            </Col>
+          </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7}>
@@ -268,11 +564,7 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                    actions={[
-                      <SettingOutlined key="setting" />,
-                      <EditOutlined key="edit" />,
-                      <EllipsisOutlined key="ellipsis" />,
-                    ]}
+                  
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}

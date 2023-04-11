@@ -54,3 +54,24 @@
 .menuText{
   color: #f2d3c7;
 }
+
+.containers {
+  overflow: auto;
+  white-space: nowrap; 
+  padding: 10px;
+} 
+
+.containers::-webkit-scrollbar {
+  width: 30px;
+}
+
+/* a {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  padding: 12px;
+  font-size: 20px;
+}
+a:hover{
+  background-color: #f2d3c7 ;
+}	 */
