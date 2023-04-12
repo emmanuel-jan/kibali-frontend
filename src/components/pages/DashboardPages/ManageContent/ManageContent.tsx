@@ -35,7 +35,7 @@ import {
   useGetVideoCategoriesQuery,
   useGetVideosQuery,
 } from "../../../../features/videos/videosApiSlice";
-import videoImg from "../../../../assets/images/video.svg"
+import videoImg from "../../../../assets/images/video.svg";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -98,6 +98,8 @@ const ManageContent = (props: any) => {
     data.append("video", selectedFile);
     data.append("video_category", "1");
     data.append("instructor", instructorData[0]?.id);
+    //data.append("video_file_name", "thename");
+    //data.append("video_file_path", "video/mp4");
 
     try {
       const res = await video(data).unwrap();
@@ -124,24 +126,24 @@ const ManageContent = (props: any) => {
                 &nbsp; Get Your Content Out There!
               </Title>
               <Card bordered={false}>
-              <Form
-                form={form}
-                name="normal_login"
-                className="login-form"
-                onFinish={onFinish}
-                validateMessages={validateMessages}
-              >
-                <Form.Item
-                  name="title"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
+                <Form
+                  form={form}
+                  name="normal_login"
+                  className="login-form"
+                  onFinish={onFinish}
+                  validateMessages={validateMessages}
                 >
-                  <Input placeholder="Video Title" />
-                </Form.Item>
-                {/* <Form.Item
+                  <Form.Item
+                    name="title"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Video Title" />
+                  </Form.Item>
+                  {/* <Form.Item
                 name="category"
                 rules={[
                   {
@@ -158,7 +160,7 @@ const ManageContent = (props: any) => {
                   ]}
                 />
               </Form.Item> */}
-                {/* <Form.Item
+                  {/* <Form.Item
                 name="category"
                 rules={[
                   {
@@ -176,41 +178,41 @@ const ManageContent = (props: any) => {
                   ]}
                 />
               </Form.Item> */}
-                <Form.Item
-                  name="description"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <TextArea
-                    rows={4}
-                    placeholder="Video description goes here..."
-                  />
-                </Form.Item>
-                <Form.Item name="video">
-                  Your Video File:
-                  <input type="file" onChange={changeHandler} />
-                  {/* <Upload action="/upload.do" listType="picture-card">
+                  <Form.Item
+                    name="description"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Video description goes here..."
+                    />
+                  </Form.Item>
+                  <Form.Item name="video">
+                    Your Video File:
+                    <input type="file" onChange={changeHandler} />
+                    {/* <Upload action="/upload.do" listType="picture-card">
                   <div>
                     <PlusOutlined />
                     <div style={{ marginTop: 8 }}>Upload</div>
                   </div>
                 </Upload> */}
-                </Form.Item>
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    block
-                    style={{ backgroundColor: "#0a0050" }}
-                    loading={isLoading}
-                  >
-                    Publish
-                  </Button>
-                </Form.Item>
-              </Form>
+                  </Form.Item>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      style={{ backgroundColor: "#0a0050" }}
+                      loading={isLoading}
+                    >
+                      Publish
+                    </Button>
+                  </Form.Item>
+                </Form>
               </Card>
             </Col>
           </Row>
@@ -227,14 +229,14 @@ const ManageContent = (props: any) => {
           className="gap_container"
         >
           {videosList?.map((video: any) => (
-            <Col xs={24} sm={24} md={7} lg={7}>
+            <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
               <Link to={`/panel/video-detail/${video?.id}`}>
                 <Card
                   hoverable
                   cover={
                     <img
                       alt="example"
-                      style={{padding:"25px"}}
+                      style={{ padding: "25px" }}
                       src={videoImg}
                     />
                   }

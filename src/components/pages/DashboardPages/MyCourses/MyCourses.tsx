@@ -110,7 +110,7 @@ const MyCourses = (props: any) => {
         style={{ minHeight: "100vh" }}
       >
         {videosList?.map((video: any) => (
-          <Col xs={20} sm={20} md={7} lg={7}>
+          <Col xs={20} sm={20} md={7} lg={7} key={video?.id}>
             <Link to={`/panel/video-detail/${video?.id}`}>
               <Card
                 hoverable

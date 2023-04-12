@@ -125,7 +125,7 @@ const Explore = (props: any) => {
           </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7}>
+              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
                     hoverable
@@ -232,7 +232,7 @@ const Explore = (props: any) => {
           </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7}>
+              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
                     hoverable
@@ -339,7 +339,7 @@ const Explore = (props: any) => {
           </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7}>
+              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
                     hoverable
@@ -446,7 +446,7 @@ const Explore = (props: any) => {
           </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7}>
+              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
                     hoverable
@@ -553,7 +553,7 @@ const Explore = (props: any) => {
           </Row>
           <Row justify="center" className="gap_container">
             {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7}>
+              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
                     hoverable

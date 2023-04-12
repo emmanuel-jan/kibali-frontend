@@ -13,7 +13,9 @@ import {
   UsergroupAddOutlined,
   ContactsOutlined,
   AuditOutlined,
-  SolutionOutlined
+  SolutionOutlined,
+  LogoutOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -25,10 +27,14 @@ import {
   Card,
   Avatar,
   Space,
+  Button,
 } from "antd";
 import { useLocation, Navigate, Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../features/auth/authSlice";
+import { apiSlice } from "../../../app/api/apiSlice";
 
 const { Title, Text } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
@@ -41,24 +47,41 @@ function getItem(label: any, key: any, icon: any) {
     label,
   };
 }
-
-const items = [
-  getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
-  getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
-  // getItem(<Link to="user-profile">Profile</Link>, "profile", <UserOutlined />),
-  getItem(
-    <Link to="manage-content">Manage Content</Link>,
-    "content",
-    <VideoCameraOutlined />
-  ),
-  getItem(<Link to="instructor-registration">Instructor Application</Link>, "instructor-reg", <SolutionOutlined />),
-  // getItem(<Link to="manage-student">Manage Students</Link>, "student", <UsergroupAddOutlined />),
-  // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
-  // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
-  // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
-];
-
 const Panel = (props: any) => {
+  const dispatch = useDispatch();
+  const logOutUser = () => {
+    dispatch(logOut());
+    dispatch(apiSlice.util.resetApiState());
+    console.log("logout clicked")
+  };
+
+  const items = [
+    getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+    getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
+    // getItem(<Link to="user-profile">Profile</Link>, "profile", <UserOutlined />),
+    getItem(
+      <Link to="manage-content">Manage Content</Link>,
+      "content",
+      <VideoCameraOutlined />
+    ),
+    getItem(
+      <Link to="instructor-registration">Instructor Application</Link>,
+      "instructor-reg",
+      <SolutionOutlined />
+    ),
+    getItem(
+      <Button ghost onClick={() => logOutUser()}>
+        Log out
+      </Button>,
+      "logout",
+      <PoweroffOutlined />
+    ),
+    // getItem(<Link to="manage-student">Manage Students</Link>, "student", <UsergroupAddOutlined />),
+    // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
+    // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
+    // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
+  ];
+
   const token = useSelector(selectCurrentToken);
   const location = useLocation();
   return (
