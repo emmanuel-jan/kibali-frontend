@@ -123,6 +123,7 @@ const ManageContent = (props: any) => {
                 <PushpinOutlined />
                 &nbsp; Get Your Content Out There!
               </Title>
+              <Card bordered={false}>
               <Form
                 form={form}
                 name="normal_login"
@@ -189,6 +190,7 @@ const ManageContent = (props: any) => {
                   />
                 </Form.Item>
                 <Form.Item name="video">
+                  Your Video File:
                   <input type="file" onChange={changeHandler} />
                   {/* <Upload action="/upload.do" listType="picture-card">
                   <div>
@@ -209,6 +211,7 @@ const ManageContent = (props: any) => {
                   </Button>
                 </Form.Item>
               </Form>
+              </Card>
             </Col>
           </Row>
         </>

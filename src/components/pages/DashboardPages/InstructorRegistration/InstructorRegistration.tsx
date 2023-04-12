@@ -11,6 +11,7 @@ import {
   DatePicker,
   Upload,
   notification,
+  Card,
 } from "antd";
 import {
   LockOutlined,
@@ -19,6 +20,7 @@ import {
   MailOutlined,
   GlobalOutlined,
   UploadOutlined,
+  SolutionOutlined
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
@@ -111,122 +113,130 @@ const InstructorRegistration = (props: any) => {
   };
 
   return (
-    <Row justify="center" style={{ minHeight: "100vh" }}>
-      <Col xs={20} sm={20} md={12} lg={12}>
+    <Row justify="center" style={{ minHeight: "100vh", padding: "10px" }}>
+      <Col xs={22} sm={22} md={12} lg={12}>
         <Title level={4} type="secondary" style={{ color: "#0a0050" }}>
+        <SolutionOutlined />&nbsp;
           Become an instructor today!
         </Title>
-        <Form
-          form={form}
-          name="normal_login"
-          className="login-form"
-          onFinish={onFinish}
-          validateMessages={validateMessages}
-        >
-          <Form.Item
-            name="address"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
+        <Card bordered={false}>
+          <Form
+            form={form}
+            name="normal_login"
+            className="login-form"
+            onFinish={onFinish}
+            validateMessages={validateMessages}
           >
-            <Input placeholder="Your address" />
-          </Form.Item>
-          <Form.Item
-            name="city"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input placeholder="Your city" />
-          </Form.Item>
-          <Form.Item
-            name="zip_code"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input placeholder="Your zip code" />
-          </Form.Item>
-          <Form.Item
-            name="state"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input style={{ width: "100%" }} placeholder="Your state" />
-          </Form.Item>
-          <Form.Item
-            name="date_of_birth"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input style={{ width: "100%" }} placeholder="Your date of birth" />
-          </Form.Item>
-          {/* <Form.Item name="date_of_birth">
+            <Form.Item
+              name="address"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Your address" />
+            </Form.Item>
+            <Form.Item
+              name="city"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Your city" />
+            </Form.Item>
+            <Form.Item
+              name="zip_code"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input placeholder="Your zip code" />
+            </Form.Item>
+            <Form.Item
+              name="state"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input style={{ width: "100%" }} placeholder="Your state" />
+            </Form.Item>
+            <Form.Item
+              name="date_of_birth"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input
+                style={{ width: "100%" }}
+                placeholder="Your date of birth"
+              />
+            </Form.Item>
+            {/* <Form.Item name="date_of_birth">
             <DatePicker style={{ width: "100%" }} />
           </Form.Item> */}
-          <Form.Item
-            name="instructor_notes"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <TextArea rows={4} placeholder="Your notes..." />
-          </Form.Item>
-          <Form.Item
-            name="instructor_description"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <TextArea rows={4} placeholder="Your description" />
-          </Form.Item>
-          <Form.Item
-            name="instructor_images"
-            // valuePropName="fileList"
-            // getValueFromEvent={normFile}
-          >
-            <input type="file" onChange={changeHandler} />
-            {/* <Upload maxCount={1}>
+            <Form.Item
+              name="instructor_notes"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <TextArea rows={4} placeholder="Your expertise..." />
+            </Form.Item>
+            <Form.Item
+              name="instructor_description"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <TextArea rows={4} placeholder="Tell us a little bit about yourself..." />
+            </Form.Item>
+            <Form.Item
+              name="instructor_images"
+              // valuePropName="fileList"
+              // getValueFromEvent={normFile}
+            >
+              Your Profile Picture:
+              <input type="file" onChange={changeHandler} />
+              {/* <Upload maxCount={1}>
               <Button icon={<UploadOutlined />}>
                 Click to upload your profile pic
               </Button>
             </Upload> */}
-          </Form.Item>
-          <Form.Item
-            name="instructor_docs"
-            // valuePropName="fileList"
-            // getValueFromEvent={normFile}
-          >
-            <input type="file" onChange={changeHandler1} />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              style={{ backgroundColor: "#0a0050" }}
-              loading={isLoading}
+            </Form.Item>
+            <Form.Item
+              name="instructor_docs"
+              // valuePropName="fileList"
+              // getValueFromEvent={normFile}
             >
-              Apply
-            </Button>
-          </Form.Item>
-        </Form>
+              Your Documentation:
+              <input type="file" onChange={changeHandler1} />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                block
+                style={{ backgroundColor: "#0a0050" }}
+                loading={isLoading}
+              >
+                Apply
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
       </Col>
     </Row>
   );
