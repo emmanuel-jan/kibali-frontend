@@ -23,6 +23,7 @@ import {
   Tabs,
   Input,
   Button,
+  Skeleton,
 } from "antd";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -124,36 +125,70 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-            {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/video-detail/${video?.id}`}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        style={{ padding: "25px" }}
-                        src={videoImg}
-                      />
-                    }
-                  
-                  >
-                    <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
-                      description={
-                        <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </Col>
-            ))}
+            {isLoading ? (
+              <>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>{" "}
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>{" "}
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>{" "}
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>{" "}
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>{" "}
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+              </>
+            ) : (
+              <>
+                {" "}
+                {videosList?.map((video: any) => (
+                  <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
+                    <Link to={`/panel/video-detail/${video?.id}`}>
+                      <Card
+                        hoverable
+                        cover={
+                          <img
+                            alt="example"
+                            style={{ padding: "25px" }}
+                            src={videoImg}
+                          />
+                        }
+                      >
+                        <Meta
+                          avatar={<Avatar icon={<UserOutlined />} />}
+                          title={video?.title}
+                          description={
+                            <>
+                              <Text type="secondary">Jim Gordon</Text>
+                              <Text type="secondary" style={{ float: "right" }}>
+                                Free
+                              </Text>
+                            </>
+                          }
+                        />
+                      </Card>
+                    </Link>
+                  </Col>
+                ))}
+              </>
+            )}
           </Row>
         </>
       ),
@@ -231,36 +266,60 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-            {videosList?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/video-detail/${video?.id}`}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        style={{ padding: "25px" }}
-                        src={videoImg}
-                      />
-                    }
-                  
-                  >
-                    <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
-                      description={
-                        <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </Col>
-            ))}
+            {isLoading ? (
+              <>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+                <Col xs={24} sm={24} md={7} lg={7}>
+                  <Skeleton active />
+                </Col>
+              </>
+            ) : (
+              <>
+                {videosList?.map((video: any) => (
+                  <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
+                    <Link to={`/panel/video-detail/${video?.id}`}>
+                      <Card
+                        hoverable
+                        cover={
+                          <img
+                            alt="example"
+                            style={{ padding: "25px" }}
+                            src={videoImg}
+                          />
+                        }
+                      >
+                        <Meta
+                          avatar={<Avatar icon={<UserOutlined />} />}
+                          title={video?.title}
+                          description={
+                            <>
+                              <Text type="secondary">Jim Gordon</Text>
+                              <Text type="secondary" style={{ float: "right" }}>
+                                Free
+                              </Text>
+                            </>
+                          }
+                        />
+                      </Card>
+                    </Link>
+                  </Col>
+                ))}
+              </>
+            )}
           </Row>
         </>
       ),
@@ -350,7 +409,6 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                 
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -457,7 +515,6 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-              
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}
@@ -564,7 +621,6 @@ const Explore = (props: any) => {
                         src={videoImg}
                       />
                     }
-                  
                   >
                     <Meta
                       avatar={<Avatar icon={<UserOutlined />} />}

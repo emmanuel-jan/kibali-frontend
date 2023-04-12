@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-const VideojsPlayer = (props: { options: any , onReady: any }) => {
+const VideojsPlayer = (props: { options: any   , onReady: any }) => {
   const videoRef = React.useRef<any>(null);
   const playerRef = React.useRef<any>(null);
   const { options , onReady } = props;
