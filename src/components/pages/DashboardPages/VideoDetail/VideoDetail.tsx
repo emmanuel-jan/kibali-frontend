@@ -139,7 +139,7 @@ const VideoDetail = (props: any) => {
     fluid: true,
     sources: [
       {
-        src: `https://d2de5vvhbdytdl.cloudfront.net/videos/${videoData?.video_file_name.replace(/ /g,"_")}`,
+        src: `https://d2de5vvhbdytdl.cloudfront.net/videos/${videoData?.slug}.${videoData?.video_file_extension}`,
         type: "video/mp4",
       },
     ],
