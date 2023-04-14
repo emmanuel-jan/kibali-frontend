@@ -15,10 +15,12 @@ import {
   RegistrationPage,
   VideoDetail,
 } from "./components";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         {/* public routes */}
         <Route path="login" element={<LoginPage />} />
