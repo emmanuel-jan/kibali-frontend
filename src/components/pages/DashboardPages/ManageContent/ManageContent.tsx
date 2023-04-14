@@ -62,7 +62,7 @@ const ManageContent = (props: any) => {
   const [video, { isLoading }] = useCreateVideoMutation();
   let noficationMsg: String;
 
-  console.log(videosList);
+  console.log(instructorData);
 
   const changeHandler = (event: any) => {
     setSelectedFile(event.target.files[0]);
@@ -193,6 +193,7 @@ const ManageContent = (props: any) => {
                   </Form.Item>
                   <Form.Item name="video">
                     Your Video File:
+                    <small style={{color:"red"}}>Upload limit is 20MB</small>
                     <input type="file" onChange={changeHandler} />
                     {/* <Upload action="/upload.do" listType="picture-card">
                   <div>
