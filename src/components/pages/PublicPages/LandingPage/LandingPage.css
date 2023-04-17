@@ -1,0 +1,8 @@
+.responsiveHeight{
+    min-height: 100vh;
+}
+@media (min-height: 700px) {
+    .responsiveHeight {
+      height: 100vh;
+    }
+}

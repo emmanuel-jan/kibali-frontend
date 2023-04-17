@@ -55,6 +55,8 @@ const Panel = (props: any) => {
     console.log("logout clicked")
   };
 
+  const status = true;
+
   const items = [
     getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
     getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
@@ -81,6 +83,10 @@ const Panel = (props: any) => {
     // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
     // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
   ];
+
+  // if(status){
+  //   items.splice(2,1);
+  // }
 
   const token = useSelector(selectCurrentToken);
   const location = useLocation();

@@ -8,6 +8,7 @@ import {
   Explore,
   ForgotPasswordPage,
   InstructorRegistration,
+  LandingPage,
   LoginPage,
   ManageContent,
   MyCourses,
@@ -23,6 +24,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         {/* public routes */}
+        <Route index element={< LandingPage/>}/>
         <Route path="login" element={<LoginPage />} />
         <Route path="registration" element={<RegistrationPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
