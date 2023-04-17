@@ -196,7 +196,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -226,7 +226,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -256,7 +256,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -293,7 +293,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -323,7 +323,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -353,7 +353,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -390,7 +390,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -420,7 +420,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
@@ -450,7 +450,7 @@ const LandingPage = (props: any) => {
                 >
                   <Meta
                     avatar={<Avatar icon={<UserOutlined />} />}
-                    title="Fundermentals Of Calculus"
+                    title="Fundamentals Of Calculus"
                     description={
                       <>
                         <Text type="secondary">Jim Gordon</Text>
