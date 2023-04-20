@@ -177,7 +177,7 @@ const Explore = (props: any) => {
                           description={
                             <>
                               <Text type="secondary">Jim Gordon</Text>
-                              <Text type="secondary" style={{ float: "right" }}>
+                              <Text type="secondary" style={{ float: "right", color:"#fd4901" }}>
                                 Free
                               </Text>
                             </>
