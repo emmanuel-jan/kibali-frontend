@@ -171,6 +171,7 @@ const LandingPage = (props: any) => {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "white",
+            paddingBottom:"20px"
           }}
         >
           <Col xs={20} sm={20} md={16} lg={16}>
