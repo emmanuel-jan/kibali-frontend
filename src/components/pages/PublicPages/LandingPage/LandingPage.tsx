@@ -92,14 +92,15 @@ const LandingPage = (props: any) => {
             <Space style={{ marginTop: "10px" }}>
               <Link to="/registration">
                 <Button
-                  style={{ backgroundColor: "#0a0050", color: "white" }}
+                  style={{ backgroundColor: "#fd4901", color: "white" }}
                   type="primary"
+                  size="large"
                 >
-                  Register
+                  Register Now!
                 </Button>
               </Link>
               <Link to="/login">
-                <Button>Log in</Button>
+                <Button size="large">Log in</Button>
               </Link>
             </Space>
           </Col>
