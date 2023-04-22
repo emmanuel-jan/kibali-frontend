@@ -473,7 +473,7 @@ const LandingPage = (props: any) => {
             textAlign: "center",
           }}
         >
-          Kibali ©2023 Created by Kibali IT Team
+          Kibali ©2023 Created by Kibali IT Team (develop)
         </Footer>
     </Layout>
   );
