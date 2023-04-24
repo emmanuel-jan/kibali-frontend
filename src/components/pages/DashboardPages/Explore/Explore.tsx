@@ -25,7 +25,7 @@ import {
   Button,
   Skeleton,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   selectCurrentRefresh,
@@ -34,6 +34,7 @@ import {
 import type { TabsProps } from "antd";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
+import { useGetCoursesByIdQuery } from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
 
 const { Search } = Input;
@@ -47,9 +48,11 @@ const { Title, Text } = Typography;
 const { Meta } = Card;
 
 const Explore = (props: any) => {
+  const {id} = useParams();
   const { data: userInfo } = useGetUserInfoQuery(1);
-  const { data: videosList, isLoading } = useGetVideosQuery(1);
+  const { data: courseCollection, isLoading } = useGetCoursesByIdQuery(id);
   console.log(userInfo);
+  console.log(courseCollection);
 
   const items: TabsProps["items"] = [
     {
@@ -158,7 +161,7 @@ const Explore = (props: any) => {
             ) : (
               <>
                 {" "}
-                {videosList?.map((video: any) => (
+                {courseCollection?.videos?.map((video: any) => (
                   <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                     <Link to={`/panel/video-detail/${video?.id}`}>
                       <Card
@@ -289,7 +292,7 @@ const Explore = (props: any) => {
               </>
             ) : (
               <>
-                {videosList?.map((video: any) => (
+                {courseCollection?.videos?.map((video: any) => (
                   <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                     <Link to={`/panel/video-detail/${video?.id}`}>
                       <Card
@@ -397,7 +400,7 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-            {videosList?.map((video: any) => (
+            {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
@@ -503,7 +506,7 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-            {videosList?.map((video: any) => (
+            {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card
@@ -609,7 +612,7 @@ const Explore = (props: any) => {
             </Col>
           </Row>
           <Row justify="center" className="gap_container">
-            {videosList?.map((video: any) => (
+            {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                 <Link to={`/panel/video-detail/${video?.id}`}>
                   <Card

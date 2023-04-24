@@ -11,6 +11,7 @@ import {
   Select,
   Alert,
   notification,
+  Checkbox,
 } from "antd";
 import {
   LockOutlined,
@@ -20,7 +21,7 @@ import {
   GlobalOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useRegisterUserMutation } from "../../../../features/auth/registerUserApiSlice"; 
+import { useRegisterUserMutation } from "../../../../features/auth/registerUserApiSlice";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -46,7 +47,7 @@ const RegistrationPage = (props: any) => {
       onClick: () => {
         console.log("Notification Clicked!");
       },
-      duration: 6.5
+      duration: 6.5,
     });
   };
 
@@ -221,6 +222,22 @@ const RegistrationPage = (props: any) => {
                       type="password"
                       placeholder="Confirm Password"
                     />
+                  </Form.Item>
+                  <Form.Item
+                    name="Terms&Conditions"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                    valuePropName="checked"
+                  >
+                    <Checkbox>
+                      I agree to the{" "}
+                      <a href="/terms" target="_blank">
+                        Terms & Conditions
+                      </a>
+                    </Checkbox>
                   </Form.Item>
                   <Form.Item>
                     <Button

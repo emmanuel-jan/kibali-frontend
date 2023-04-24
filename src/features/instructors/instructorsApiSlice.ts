@@ -14,11 +14,55 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
                 url:"/instructors/",
                 method:"GET"
             })
-        })
+        }),
+        getInstructorCourses: builder.query({
+            query: () => ({
+                url:"/instructors/courses/",
+                method:"GET"
+            })
+        }),
+        getInstructorCoursesById: builder.query({
+            query: (id) => ({
+                url:`/instructors/courses/${id}`,
+                method:"GET"
+            })
+        }),
+        getInstructorInfoById: builder.query({
+            query: (id) => ({
+                url:`/instructors/${id}`,
+                method:"GET"
+            })
+        }),
+        updateInstructorInfoById: builder.mutation({
+            query: (data) => ({
+                url:`/instructors/${data.id}`,
+                method:"PUT",
+                body: data
+            })
+        }),
+        partialUpdateInstructorInfoById: builder.mutation({
+            query: (data) => ({
+                url:`/instructors/${data.id}`,
+                method:"PATCH",
+                body: data
+            })
+        }),
+        deleteInstructorInfoById: builder.mutation({
+            query: (data) => ({
+                url:`/instructors/${data.id}`,
+                method:"DELETE",
+            })
+        }),
     })
 })
 
 export const {
     useCreateInstructorMutation,
-    useGetInstructorInfoQuery
+    useGetInstructorInfoQuery,
+    useGetInstructorInfoByIdQuery,
+    useUpdateInstructorInfoByIdMutation,
+    usePartialUpdateInstructorInfoByIdMutation,
+    useDeleteInstructorInfoByIdMutation,
+    useGetInstructorCoursesQuery,
+    useGetInstructorCoursesByIdQuery
 } = instructorsApiSlice

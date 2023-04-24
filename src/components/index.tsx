@@ -14,3 +14,4 @@ export { default as InstructorRegistration } from "./pages/DashboardPages/Instru
 
 //public pages
 export { default as LandingPage } from "./pages/PublicPages/LandingPage/LandingPage";
+export { default as TermsConditionsPage } from "./pages/PublicPages/TermsConditionsPage/TermsConditionsPage";

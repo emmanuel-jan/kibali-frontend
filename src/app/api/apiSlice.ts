@@ -3,7 +3,7 @@ import { setCredentials, logOut } from "../../features/auth/authSlice"
 
 //create a base query
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://kibali.herokuapp.com",
+    baseUrl: "https://kibali-prod.herokuapp.com",
     // credentials: "include",
     prepareHeaders: (headers, {getState}:any) => {
         const token = getState().auth.token

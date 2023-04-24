@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const registerUserApiSlice = createApi({
     reducerPath: "registerUser",
     baseQuery: fetchBaseQuery({
-        baseUrl:"https://kibali.herokuapp.com",
+        baseUrl:"https://kibali-prod.herokuapp.com",
     }),
     tagTypes: ["register"],
     endpoints: (builder) => ({

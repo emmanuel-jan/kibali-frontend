@@ -16,6 +16,7 @@ import {
   SolutionOutlined,
   LogoutOutlined,
   PoweroffOutlined,
+  FileDoneOutlined
 } from "@ant-design/icons";
 import {
   Layout,
@@ -52,7 +53,7 @@ const Panel = (props: any) => {
   const logOutUser = () => {
     dispatch(logOut());
     dispatch(apiSlice.util.resetApiState());
-    console.log("logout clicked")
+    console.log("logout clicked");
   };
 
   const status = true;
@@ -70,6 +71,13 @@ const Panel = (props: any) => {
       <Link to="instructor-registration">Instructor Application</Link>,
       "instructor-reg",
       <SolutionOutlined />
+    ),
+    getItem(
+      <a href="/terms" target="_blank">
+        Terms & Conditions
+      </a>,
+      "terms",
+      <FileDoneOutlined />
     ),
     getItem(
       <Button ghost onClick={() => logOutUser()}>
