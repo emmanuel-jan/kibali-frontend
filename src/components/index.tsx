@@ -10,7 +10,9 @@ export { default as Explore } from "./pages/DashboardPages/Explore/Explore";
 export { default as MyCourses } from "./pages/DashboardPages/MyCourses/MyCourses";
 export { default as VideoDetail } from "./pages/DashboardPages/VideoDetail/VideoDetail";
 export { default as ManageContent } from "./pages/DashboardPages/ManageContent/ManageContent";
+export { default as ManageStudent } from "./pages/DashboardPages/ManageStudent/ManageStudent";
 export { default as InstructorRegistration } from "./pages/DashboardPages/InstructorRegistration/InstructorRegistration";
+export { default as MyProfile } from "./pages/DashboardPages/MyProfile/MyProfile";
 
 //public pages
 export { default as LandingPage } from "./pages/PublicPages/LandingPage/LandingPage";

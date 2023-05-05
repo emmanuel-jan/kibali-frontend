@@ -20,11 +20,18 @@ export const registerUserApiSlice = createApi({
                 method:"post",
                 body: activationData
             })
-        })
+        }),
+        getCountries: builder.query({
+            query: () => ({
+                url:"/countries/",
+                method:"GET"
+            })
+        }),
     })
 })
 
 export const {
     useRegisterUserMutation,
-    useActivateUserMutation
+    useActivateUserMutation,
+    useGetCountriesQuery
 } = registerUserApiSlice

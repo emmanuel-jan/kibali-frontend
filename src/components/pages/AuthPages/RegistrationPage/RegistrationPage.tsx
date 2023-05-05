@@ -21,7 +21,11 @@ import {
   GlobalOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { useRegisterUserMutation } from "../../../../features/auth/registerUserApiSlice";
+import {
+  useRegisterUserMutation,
+  useGetCountriesQuery,
+} from "../../../../features/auth/registerUserApiSlice";
+import type { SelectProps } from "antd";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -37,8 +41,20 @@ const validateMessages = {
 const RegistrationPage = (props: any) => {
   const [register, { isLoading }] = useRegisterUserMutation();
   const [activationMsg, setActivationMsg] = useState<any>("");
+  const { data: countries } = useGetCountriesQuery(1);
   const [form] = Form.useForm();
+  const options: SelectProps["options"] = [];
+
+  for (let i = 0; i < countries?.length; i++) {
+    options.push({
+      value: countries[i]?.id,
+      label: countries[i]?.name,
+    });
+  }
+
   let noficationMsg: String;
+
+  console.log(countries);
 
   const openNotificationSuccess = () => {
     notification.success({
@@ -192,7 +208,7 @@ const RegistrationPage = (props: any) => {
                   >
                     <Select
                       placeholder="Choose your country"
-                      options={[{ value: "KENYA", label: "KENYA" }]}
+                      options={options}
                     />
                   </Form.Item>
                   <Form.Item
@@ -234,7 +250,11 @@ const RegistrationPage = (props: any) => {
                   >
                     <Checkbox>
                       I agree to the{" "}
-                      <a href="/terms" target="_blank">
+                      <a
+                        href="/terms"
+                        target="_blank"
+                        style={{ color: "#fd4901" }}
+                      >
                         Terms & Conditions
                       </a>
                     </Checkbox>

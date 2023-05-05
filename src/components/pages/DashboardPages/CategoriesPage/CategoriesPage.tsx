@@ -8,6 +8,7 @@ import {
   EllipsisOutlined,
   SettingOutlined,
   HomeOutlined,
+  ReadOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -26,7 +27,7 @@ import {
 import { Link } from "react-router-dom";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
 import { useGetCoursesQuery, useGetCoursesCategoriesQuery } from "../../../../features/courses/coursesApiSlice";
-import videoImg from "../../../../assets/images/video.svg";
+import videoImg from "../../../../assets/images/subject.svg";
 
 const { Search } = Input;
 const onSearch = (value: string) => console.log(value);
@@ -34,7 +35,8 @@ const onSearch = (value: string) => console.log(value);
 const { Title, Text } = Typography;
 const { Meta } = Card;
 const CategoriesPage = (props: any) => {
-  const { data: categoryList, isLoading } = useGetCoursesQuery(1);
+  const { data: categoryList, isLoading } = useGetCoursesCategoriesQuery(1);
+  console.log(categoryList);
   return (
     <>
       <Row
@@ -74,9 +76,9 @@ const CategoriesPage = (props: any) => {
           </>
         ) : (
           <>
-            {categoryList?.map((video: any) => (
-              <Col xs={20} sm={20} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/category/${video?.id}`}>
+            {categoryList?.map((category: any) => (
+              <Col xs={20} sm={20} md={7} lg={7} key={category?.id}>
+                <Link to={`/panel/category/${category?.id}`}>
                   <Card
                     hoverable
                     cover={
@@ -88,14 +90,11 @@ const CategoriesPage = (props: any) => {
                     }
                   >
                     <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
+                      avatar={<Avatar icon={<ReadOutlined />} />}
+                      title={category?.name}
                       description={
                         <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
+                          <Text type="secondary">{category?.description}</Text>
                         </>
                       }
                     />

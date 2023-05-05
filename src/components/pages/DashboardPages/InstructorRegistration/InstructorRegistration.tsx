@@ -20,7 +20,7 @@ import {
   MailOutlined,
   GlobalOutlined,
   UploadOutlined,
-  SolutionOutlined
+  SolutionOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
@@ -116,8 +116,8 @@ const InstructorRegistration = (props: any) => {
     <Row justify="center" style={{ minHeight: "100vh", padding: "10px" }}>
       <Col xs={22} sm={22} md={12} lg={12}>
         <Title level={4} type="secondary" style={{ color: "#0a0050" }}>
-        <SolutionOutlined />&nbsp;
-          Become an instructor today!
+          <SolutionOutlined />
+          &nbsp; Become an instructor today!
         </Title>
         <Card bordered={false}>
           <Form
@@ -127,59 +127,72 @@ const InstructorRegistration = (props: any) => {
             onFinish={onFinish}
             validateMessages={validateMessages}
           >
-            <Form.Item
-              name="address"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Your address" />
-            </Form.Item>
-            <Form.Item
-              name="city"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Your city" />
-            </Form.Item>
-            <Form.Item
-              name="zip_code"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input placeholder="Your zip code" />
-            </Form.Item>
-            <Form.Item
-              name="state"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input style={{ width: "100%" }} placeholder="Your state" />
-            </Form.Item>
-            <Form.Item
-              name="date_of_birth"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input
-                style={{ width: "100%" }}
-                placeholder="Your date of birth"
-              />
-            </Form.Item>
+            <Row justify="center">
+              <Col xs={24} sm={24} md={12} lg={12}>
+                <Form.Item
+                  name="address"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input placeholder="Your address" />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={24} md={12} lg={12}>
+                <Form.Item
+                  name="city"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input placeholder="Your city" />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={24} md={12} lg={12}>
+                <Form.Item
+                  name="zip_code"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input placeholder="Your zip code" />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={24} md={12} lg={12}>
+                <Form.Item
+                  name="state"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input style={{ width: "100%" }} placeholder="Your state" />
+                </Form.Item>
+              </Col>
+              <Col xs={24} sm={24} md={16} lg={16}>
+                <Form.Item
+                  name="date_of_birth"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                >
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Your date of birth"
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
             {/* <Form.Item name="date_of_birth">
             <DatePicker style={{ width: "100%" }} />
           </Form.Item> */}
@@ -201,7 +214,10 @@ const InstructorRegistration = (props: any) => {
                 },
               ]}
             >
-              <TextArea rows={4} placeholder="Tell us a little bit about yourself..." />
+              <TextArea
+                rows={4}
+                placeholder="Tell us a little bit about yourself..."
+              />
             </Form.Item>
             <Form.Item
               name="instructor_images"

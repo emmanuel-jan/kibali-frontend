@@ -16,7 +16,7 @@ import {
   SolutionOutlined,
   LogoutOutlined,
   PoweroffOutlined,
-  FileDoneOutlined
+  FileDoneOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -36,6 +36,7 @@ import { selectCurrentToken } from "../../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../features/auth/authSlice";
 import { apiSlice } from "../../../app/api/apiSlice";
+import { useGetUserInfoQuery } from "../../../features/auth/authApiSlice";
 
 const { Title, Text } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
@@ -49,6 +50,7 @@ function getItem(label: any, key: any, icon: any) {
   };
 }
 const Panel = (props: any) => {
+  const { data: userInfo } = useGetUserInfoQuery(1);
   const dispatch = useDispatch();
   const logOutUser = () => {
     dispatch(logOut());
@@ -56,41 +58,152 @@ const Panel = (props: any) => {
     console.log("logout clicked");
   };
 
+  console.log(userInfo);
+  let items: any = []
+
+    if (userInfo?.is_staff){
+      items = [
+        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+        getItem(
+          <Link to="content">Content</Link>,
+          "content",
+          <VideoCameraOutlined />
+        ),
+        getItem(
+          <Link to="students">Students</Link>,
+          "students",
+          <UserOutlined />
+        ),
+        getItem(
+          <Link to="instructors">Instructors</Link>,
+          "instructors",
+          <UsergroupAddOutlined />
+        ),
+        getItem(
+          <Link to="profile">My profile</Link>,
+          "profile",
+          <SolutionOutlined />
+        ),
+        getItem(
+          <a href="/terms" target="_blank">
+            Terms & Conditions
+          </a>,
+          "terms",
+          <FileDoneOutlined />
+        ),
+        getItem(
+          <Button ghost onClick={() => logOutUser()}>
+            Log out
+          </Button>,
+          "logout",
+          <PoweroffOutlined />
+        ),
+      ];
+    }else if(userInfo?.is_instructor){
+      items = [
+        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+        getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
+        getItem(
+          <Link to="manage-content">Manage Content</Link>,
+          "content",
+          <VideoCameraOutlined />
+        ),
+        getItem(
+          <Link to="manage-student">Manage Students</Link>,
+          "student",
+          <UserOutlined />
+        ),
+        getItem(
+          <Link to="profile">My profile</Link>,
+          "profile",
+          <SolutionOutlined />
+        ),
+        getItem(
+          <a href="/terms" target="_blank">
+            Terms & Conditions
+          </a>,
+          "terms",
+          <FileDoneOutlined />
+        ),
+        getItem(
+          <Button ghost onClick={() => logOutUser()}>
+            Log out
+          </Button>,
+          "logout",
+          <PoweroffOutlined />
+        ),
+      ];
+    }else if(userInfo?.is_parent){
+      items = [
+        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+        // getItem(
+        //   <Link to="courses">My Courses</Link>,
+        //   "courses",
+        //   <BookOutlined />
+        // ),
+        getItem(
+          <Link to="manage-student">Manage Students</Link>,
+          "student",
+          <UserOutlined />
+        ),
+        getItem(
+          <Link to="instructor-registration">Instructor Application</Link>,
+          "instructor-reg",
+          <SolutionOutlined />
+        ),
+        getItem(
+          <Link to="profile">My profile</Link>,
+          "profile",
+          <SolutionOutlined />
+        ),
+        getItem(
+          <a href="/terms" target="_blank">
+            Terms & Conditions
+          </a>,
+          "terms",
+          <FileDoneOutlined />
+        ),
+        getItem(
+          <Button ghost onClick={() => logOutUser()}>
+            Log out
+          </Button>,
+          "logout",
+          <PoweroffOutlined />
+        ),
+      ];
+    }else{
+      items = [
+        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+        // getItem(
+        //   <Link to="courses">My Courses</Link>,
+        //   "courses",
+        //   <BookOutlined />
+        // ),
+        getItem(
+          <Link to="profile">My profile</Link>,
+          "profile",
+          <SolutionOutlined />
+        ),
+        getItem(
+          <a href="/terms" target="_blank">
+            Terms & Conditions
+          </a>,
+          "terms",
+          <FileDoneOutlined />
+        ),
+        getItem(
+          <Button ghost onClick={() => logOutUser()}>
+            Log out
+          </Button>,
+          "logout",
+          <PoweroffOutlined />
+        ),
+      ];
+    }
+  
+
   const status = true;
 
-  const items = [
-    getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
-    getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
-    // getItem(<Link to="user-profile">Profile</Link>, "profile", <UserOutlined />),
-    getItem(
-      <Link to="manage-content">Manage Content</Link>,
-      "content",
-      <VideoCameraOutlined />
-    ),
-    getItem(
-      <Link to="instructor-registration">Instructor Application</Link>,
-      "instructor-reg",
-      <SolutionOutlined />
-    ),
-    getItem(
-      <a href="/terms" target="_blank">
-        Terms & Conditions
-      </a>,
-      "terms",
-      <FileDoneOutlined />
-    ),
-    getItem(
-      <Button ghost onClick={() => logOutUser()}>
-        Log out
-      </Button>,
-      "logout",
-      <PoweroffOutlined />
-    ),
-    // getItem(<Link to="manage-student">Manage Students</Link>, "student", <UsergroupAddOutlined />),
-    // getItem(<Link to="settings">Settings</Link>, "settings", <HomeOutlined/>),
-    // getItem(<Link to="contact-us">Contact Us</Link>, "contact-us", <ContactsOutlined />),
-    // getItem(<Link to="policy">Policy</Link>, "policy", <AuditOutlined />),
-  ];
 
   // if(status){
   //   items.splice(2,1);

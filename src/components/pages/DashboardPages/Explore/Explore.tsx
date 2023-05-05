@@ -34,7 +34,7 @@ import {
 import type { TabsProps } from "antd";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
-import { useGetCoursesByIdQuery } from "../../../../features/courses/coursesApiSlice";
+import { useGetCoursesByIdQuery, useGetCoursesCategoriesByIdQuery } from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
 
 const { Search } = Input;
@@ -50,7 +50,7 @@ const { Meta } = Card;
 const Explore = (props: any) => {
   const {id} = useParams();
   const { data: userInfo } = useGetUserInfoQuery(1);
-  const { data: courseCollection, isLoading } = useGetCoursesByIdQuery(id);
+  const { data: courseCollection, isLoading } = useGetCoursesCategoriesByIdQuery(id);
   console.log(userInfo);
   console.log(courseCollection);
 
@@ -65,7 +65,7 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
-          <Row justify="center">
+          {/* <Row justify="center">
             <Col xs={24} sm={24} md={16} lg={16} className="containers">
               <Space>
                 <Button
@@ -126,7 +126,7 @@ const Explore = (props: any) => {
                 </Button>
               </Space>
             </Col>
-          </Row>
+          </Row> */}
           <Row justify="center" className="gap_container">
             {isLoading ? (
               <>
@@ -161,7 +161,7 @@ const Explore = (props: any) => {
             ) : (
               <>
                 {" "}
-                {courseCollection?.videos?.map((video: any) => (
+                {courseCollection?.map((video: any) => (
                   <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
                     <Link to={`/panel/video-detail/${video?.id}`}>
                       <Card
@@ -179,7 +179,7 @@ const Explore = (props: any) => {
                           title={video?.title}
                           description={
                             <>
-                              <Text type="secondary">Jim Gordon</Text>
+                              <Text type="secondary">{video?.instructor?.user?.first_name}&nbsp;{video?.instructor?.user?.last_name}</Text>
                               <Text type="secondary" style={{ float: "right", color:"#fd4901" }}>
                                 Free
                               </Text>
@@ -206,7 +206,7 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
-          <Row justify="center">
+          {/* <Row justify="center">
             <Col xs={24} sm={24} md={16} lg={16} className="containers">
               <Space>
                 <Button
@@ -267,7 +267,7 @@ const Explore = (props: any) => {
                 </Button>
               </Space>
             </Col>
-          </Row>
+          </Row> */}
           <Row justify="center" className="gap_container">
             {isLoading ? (
               <>
@@ -337,7 +337,7 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
-          <Row justify="center">
+          {/* <Row justify="center">
             <Col xs={24} sm={24} md={16} lg={16} className="containers">
               <Space>
                 <Button
@@ -398,7 +398,7 @@ const Explore = (props: any) => {
                 </Button>
               </Space>
             </Col>
-          </Row>
+          </Row> */}
           <Row justify="center" className="gap_container">
             {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
@@ -443,7 +443,7 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
-          <Row justify="center">
+          {/* <Row justify="center">
             <Col xs={24} sm={24} md={16} lg={16} className="containers">
               <Space>
                 <Button
@@ -504,7 +504,7 @@ const Explore = (props: any) => {
                 </Button>
               </Space>
             </Col>
-          </Row>
+          </Row> */}
           <Row justify="center" className="gap_container">
             {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
@@ -549,7 +549,7 @@ const Explore = (props: any) => {
               <Search placeholder="Search..." onSearch={onSearch} enterButton />
             </Col>
           </Row>
-          <Row justify="center">
+          {/* <Row justify="center">
             <Col xs={24} sm={24} md={16} lg={16} className="containers">
               <Space>
                 <Button
@@ -610,7 +610,7 @@ const Explore = (props: any) => {
                 </Button>
               </Space>
             </Col>
-          </Row>
+          </Row> */}
           <Row justify="center" className="gap_container">
             {courseCollection?.videos?.map((video: any) => (
               <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>

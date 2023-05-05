@@ -11,7 +11,9 @@ import {
   LandingPage,
   LoginPage,
   ManageContent,
+  ManageStudent,
   MyCourses,
+  MyProfile,
   PanelPage,
   RegistrationPage,
   TermsConditionsPage,
@@ -40,10 +42,12 @@ function App() {
           <Route path="courses" element={<MyCourses />} />
           <Route path="video-detail/:id" element={<VideoDetail />} />
           <Route path="manage-content" element={<ManageContent />} />
+          <Route path="manage-student" element={<ManageStudent />} />
           <Route
             path="instructor-registration"
             element={<InstructorRegistration />}
           />
+          <Route path="profile" element={< MyProfile/>} />
         </Route>
       </Routes>
     </>

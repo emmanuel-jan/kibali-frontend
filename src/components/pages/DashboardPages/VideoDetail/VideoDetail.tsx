@@ -15,6 +15,7 @@ import {
   CommentOutlined,
   ShareAltOutlined,
   HeartOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import {
   List,
@@ -30,6 +31,10 @@ import {
   Collapse,
   Tooltip,
   Button,
+  Drawer,
+  Form,
+  Input,
+  Select,
 } from "antd";
 import { Link } from "react-router-dom";
 import VirtualList from "rc-virtual-list";
@@ -38,6 +43,8 @@ import videojs from "video.js";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useParams } from "react-router-dom";
 import { useGetVideosByIdQuery } from "../../../../features/videos/videosApiSlice";
+import { useGetCoursesByIdQuery } from "../../../../features/courses/coursesApiSlice";
+const { Option } = Select;
 
 interface UserItem {
   email: string;
@@ -102,35 +109,33 @@ const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
 );
 
 const VideoDetail = (props: any) => {
+  const { id } = useParams();
   const playerRef = React.useRef<any>(null);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<DataType[]>([]);
-  const {id} = useParams();
-  const {data:videoData} = useGetVideosByIdQuery(id);
+  const { data: videoData } = useGetCoursesByIdQuery(id);
+  const [videoUrl, setVideoUrl] = useState<any>(
+    `${videoData?.videos[0]?.slug}`
+  );
+  const [videoTitle, setVideoTitle] = useState<any>(
+    `${videoData?.videos[0]?.title}`
+  );
+  const [videoFileExtension, setVideoFileExtension] = useState<any>(
+    `${videoData?.videos[0].video_file_extension}`
+  );
+  const datass = videoData?.videos;
+  const [open, setOpen] = useState(false);
 
-  console.log(videoData);
-
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-    setLoading(true);
-    fetch(
-      "https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo"
-    )
-      .then((res) => res.json())
-      .then((body) => {
-        setData([...data, ...body.results]);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+  const showDrawer = () => {
+    setOpen(true);
   };
 
-  useEffect(() => {
-    loadMoreData();
-  }, []);
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  console.log(videoData);
+  console.log(videoUrl);
 
   const videoJsOptions = {
     autoplay: true,
@@ -139,7 +144,7 @@ const VideoDetail = (props: any) => {
     fluid: true,
     sources: [
       {
-        src: `https://d2de5vvhbdytdl.cloudfront.net/videos/${videoData?.slug}.${videoData?.video_file_extension}`,
+        src: `https://d2de5vvhbdytdl.cloudfront.net/videos/${videoUrl}.${videoFileExtension}`,
         type: "video/mp4",
       },
     ],
@@ -163,15 +168,11 @@ const VideoDetail = (props: any) => {
       <Row justify="center" style={{ padding: "10px", gap: "1rem" }}>
         <Col xs={24} sm={24} md={15} lg={15}>
           <VideojsPlayer options={videoJsOptions} onReady={handlePlayerReady} />
-          <Title level={3} style={{ margin: 0, padding: 0 }}>
-            {videoData?.title}
-          </Title>
-          <div style={{ padding: "10px" }}>
-            <Text>
-              <Avatar icon={<UserOutlined />} />
-              &nbsp;Jim Gordon
-            </Text>
 
+          <div style={{ padding: "20px" }}>
+              <Text>
+                {videoTitle}
+              </Text>
             <span style={{ float: "right" }}>
               <Space.Compact block>
                 <Tooltip title="Like">
@@ -207,7 +208,6 @@ const VideoDetail = (props: any) => {
               />
             </Space> */}
           </div>
-
           <Collapse
             bordered={false}
             expandIcon={({ isActive }) => (
@@ -216,10 +216,9 @@ const VideoDetail = (props: any) => {
             size="small"
           >
             <Panel header="34K Views 1 year ago" key="1">
-              <p>{text}</p>
+              <p>{videoData?.description}</p>
             </Panel>
           </Collapse>
-
           <List
             itemLayout="vertical"
             size="small"
@@ -228,12 +227,13 @@ const VideoDetail = (props: any) => {
                 console.log(page);
               },
               pageSize: 3,
-              align:"center"
+              align: "center",
             }}
             dataSource={datas}
             header={
-              <div>
-                Comments ...
+              <div style={{ cursor: "pointer" }} onClick={showDrawer}>
+                {" "}
+                <PlusOutlined /> Add Comment ...
               </div>
             }
             renderItem={(items) => (
@@ -270,43 +270,85 @@ const VideoDetail = (props: any) => {
           <div
             id="scrollableDiv"
             style={{
-              height: "100vh",
               overflow: "auto",
               padding: "0 16px",
               border: "1px solid rgba(140, 140, 140, 0.35)",
-              borderRadius:"10px"
+              borderRadius: "10px",
             }}
           >
-            <InfiniteScroll
-              dataLength={data.length}
-              next={loadMoreData}
-              hasMore={data.length < 50}
-              loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-              endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-              scrollableTarget="scrollableDiv"
-            >
-              <List
-                header={
-                  <div>
-                    <VideoCameraOutlined />
-                    &nbsp;Related videos...
-                  </div>
-                }
-                dataSource={data}
-                renderItem={(item) => (
-                  <List.Item key={item.email}>
-                    <List.Item.Meta
-                      title={<a href="https://ant.design">{item.name.last}</a>}
-                      description={item.email}
-                    />
-                    <div>05:00 min</div>
-                  </List.Item>
-                )}
-              />
-            </InfiniteScroll>
+            <List
+              header={
+                <div>
+                  {" "}
+                  <Title level={3} style={{ margin: 0, padding: 0 }}>
+                    {videoData?.title}
+                  </Title>{" "}
+                  by{" "}
+                  <Text style={{ color: "#fd4901" }}>
+                    {videoData?.instructor?.user?.first_name}&nbsp;
+                    {videoData?.instructor?.user?.last_name}
+                  </Text>
+                </div>
+              }
+              itemLayout="horizontal"
+              dataSource={datass}
+              renderItem={(item: any, index) => (
+                <List.Item
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setVideoUrl(item?.slug);
+                    setVideoTitle(item?.title);
+                    setVideoFileExtension(item?.video_file_extension);
+                  }}
+                >
+                  <List.Item.Meta
+                    title={item.title}
+                    description={item.description}
+                  />
+                </List.Item>
+              )}
+            />
           </div>
         </Col>
       </Row>
+      <Drawer
+        title="Comment Here!"
+        onClose={onClose}
+        open={open}
+        bodyStyle={{ paddingBottom: 80 }}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+          </Space>
+        }
+      >
+        <Form layout="vertical" hideRequiredMark>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="comment"
+                label="Comment"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your comment before you submit",
+                  },
+                ]}
+              >
+                <Input.TextArea
+                  rows={4}
+                  placeholder="Please enter your comment"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item>
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </Drawer>
     </>
   );
 };

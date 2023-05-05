@@ -17,13 +17,13 @@ export const coursesApiSlice = apiSlice.injectEndpoints({
         }),
         getCoursesCategories: builder.query({
             query: () => ({
-                url:"/courses/categories/",
+                url:"/courses/categories",
                 method:"GET"
             })
         }),
         getCoursesCategoriesById: builder.query({
             query: (id) => ({
-                url:`/courses/categories/${id}/`,
+                url:`/courses/?course_category=${id}`,
                 method:"GET"
             })
         }),
