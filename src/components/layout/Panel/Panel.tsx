@@ -107,7 +107,7 @@ const Panel = (props: any) => {
     }else if(userInfo?.is_instructor){
       items = [
         getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
-        getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
+        // getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
         getItem(
           <Link to="manage-content">Manage Content</Link>,
           "content",
