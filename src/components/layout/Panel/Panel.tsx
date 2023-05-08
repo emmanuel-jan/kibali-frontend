@@ -65,17 +65,22 @@ const Panel = (props: any) => {
       items = [
         getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
         getItem(
-          <Link to="content">Content</Link>,
+          <Link to="admin-content">Content</Link>,
           "content",
           <VideoCameraOutlined />
         ),
         getItem(
-          <Link to="students">Students</Link>,
+          <Link to="admin-users">Users</Link>,
+          "users",
+          <UserOutlined />
+        ),
+        getItem(
+          <Link to="admin-students">Students</Link>,
           "students",
           <UserOutlined />
         ),
         getItem(
-          <Link to="instructors">Instructors</Link>,
+          <Link to="admin-instructors">Instructors</Link>,
           "instructors",
           <UsergroupAddOutlined />
         ),

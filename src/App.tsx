@@ -5,6 +5,10 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import {
   ActivationPage,
+  AdminContent,
+  AdminInstructor,
+  AdminStudent,
+  AdminUsers,
   Explore,
   ForgotPasswordPage,
   InstructorRegistration,
@@ -43,6 +47,10 @@ function App() {
           <Route path="video-detail/:id" element={<VideoDetail />} />
           <Route path="manage-content" element={<ManageContent />} />
           <Route path="manage-student" element={<ManageStudent />} />
+          <Route path="admin-instructors" element={<AdminInstructor />} />
+          <Route path="admin-users" element={<AdminUsers />} />
+          <Route path="admin-content" element={<AdminContent />} />
+          <Route path="admin-students" element={<AdminStudent />} />
           <Route
             path="instructor-registration"
             element={<InstructorRegistration />}
