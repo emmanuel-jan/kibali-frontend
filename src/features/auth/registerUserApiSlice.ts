@@ -27,11 +27,28 @@ export const registerUserApiSlice = createApi({
                 method:"GET"
             })
         }),
+        sendResetEmail: builder.mutation({
+            query: (email) => ({
+                url:"/auth/users/reset_password/",
+                method:"post",
+                body: email
+            })
+        }),
+        resetPassword: builder.mutation({
+            query: (data) => ({
+                url:"/auth/users/reset_password_confirm/",
+                method:"post",
+                body: data
+            })
+        }),
     })
 })
 
 export const {
     useRegisterUserMutation,
     useActivateUserMutation,
-    useGetCountriesQuery
+    useGetCountriesQuery,
+    useSendResetEmailMutation,
+    useResetPasswordMutation
+
 } = registerUserApiSlice

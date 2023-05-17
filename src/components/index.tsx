@@ -3,6 +3,7 @@ export { default as LoginPage } from "./pages/AuthPages/LoginPage/LoginPage";
 export { default as ForgotPasswordPage } from "./pages/AuthPages/ForgotPasswordPage/ForgotPasswordPage";
 export { default as RegistrationPage } from "./pages/AuthPages/RegistrationPage/RegistrationPage";
 export { default as ActivationPage } from "./pages/AuthPages/ActivationPage/ActivationPage";
+export { default as ResetPassword } from "./pages/AuthPages/ForgotPasswordPage/ResetPassword";
 
 //dashbord pages
 export { default as PanelPage } from "./layout/Panel/Panel"; //layout

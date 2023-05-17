@@ -16,8 +16,8 @@ import {
   DingtalkOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { useSendResetEmailMutation } from "../../../../features/auth/registerUserApiSlice";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useResetPasswordMutation } from "../../../../features/auth/registerUserApiSlice";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -29,14 +29,16 @@ const validateMessages = {
   },
 };
 
-const ForgotPasswordPage = (props: any) => {
+const ResetPassword = (props: any) => {
   const [form] = Form.useForm();
   let noficationMsg: String;
-  const [sendEmail, { isLoading }] = useSendResetEmailMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const { uid, token } = useParams();
+  const navigate = useNavigate();
 
   const openNotificationSuccess = () => {
     notification.success({
-      message: "Hey there!",
+      message: "Great!",
       description: `${noficationMsg}`,
       onClick: () => {
         console.log("Notification Clicked!");
@@ -55,17 +57,28 @@ const ForgotPasswordPage = (props: any) => {
     });
   };
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-    try {
-      const response = await sendEmail(values).unwrap();
-      console.log(response);
-      noficationMsg =
-        "We've sent a reset link to your email. Check your email and click on the reset link";
-      openNotificationSuccess();
-      form.resetFields();
-    } catch (error: any) {
-      console.log(error);
+    if (values.new_password !== values.re_new_password) {
+      noficationMsg = "Your passwords don't match";
       openNotification();
+    } else {
+      try {
+        const data = {
+          uid,
+          token,
+          new_password: values.new_password,
+          re_new_password: values.re_new_password,
+        };
+        console.log(data);
+        const response = await resetPassword(data).unwrap();
+        console.log(response);
+        noficationMsg = "Your password has been successfully reset";
+        openNotificationSuccess();
+        form.resetFields();
+        navigate("/login");
+      } catch (error: any) {
+        console.log(error);
+        openNotification();
+      }
     }
   };
   return (
@@ -98,14 +111,7 @@ const ForgotPasswordPage = (props: any) => {
                   level={4}
                   type="secondary"
                 >
-                  Forgot Password?
-                </Title>
-                <Title
-                  level={5}
-                  style={{ textAlign: "center", margin: 0, padding: "10px" }}
-                  type="secondary"
-                >
-                  We can help with that, all we need is your email address
+                  Lets Reset Your Password!
                 </Title>
                 <Form
                   form={form}
@@ -115,17 +121,31 @@ const ForgotPasswordPage = (props: any) => {
                   validateMessages={validateMessages}
                 >
                   <Form.Item
-                    name="email"
+                    name="new_password"
                     rules={[
                       {
                         required: true,
-                        type: "email",
                       },
                     ]}
                   >
-                    <Input
-                      prefix={<UserOutlined className="site-form-item-icon" />}
-                      placeholder="johndoe@etc.com"
+                    <Input.Password
+                      prefix={<LockOutlined />}
+                      type="password"
+                      placeholder="Password"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="re_new_password"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input.Password
+                      prefix={<LockOutlined />}
+                      type="password"
+                      placeholder="Confirm Password"
                     />
                   </Form.Item>
                   <Form.Item>
@@ -136,7 +156,7 @@ const ForgotPasswordPage = (props: any) => {
                       style={{ backgroundColor: "#0a0050" }}
                       loading={isLoading}
                     >
-                      Send Reset Link
+                      Reset Password
                     </Button>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
@@ -146,12 +166,6 @@ const ForgotPasswordPage = (props: any) => {
                     </Link>
                   </Form.Item>
                   <hr />
-                  <Form.Item style={{ textAlign: "center" }}>
-                    Don't have an account?&nbsp;
-                    <Link to="/registration" className="thelinks">
-                      Sign up
-                    </Link>
-                  </Form.Item>
                 </Form>
               </Col>
             </Row>
@@ -169,6 +183,6 @@ const ForgotPasswordPage = (props: any) => {
   );
 };
 
-ForgotPasswordPage.propTypes = {};
+ResetPassword.propTypes = {};
 
-export default ForgotPasswordPage;
+export default ResetPassword;

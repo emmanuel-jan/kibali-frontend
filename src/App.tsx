@@ -20,6 +20,7 @@ import {
   MyProfile,
   PanelPage,
   RegistrationPage,
+  ResetPassword,
   TermsConditionsPage,
   VideoDetail,
 } from "./components";
@@ -37,6 +38,7 @@ function App() {
         <Route path="registration" element={<RegistrationPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="activate/:uid/:token" element={<ActivationPage />} />
+        <Route path="password/reset/confirm/:uid/:token" element={<ResetPassword />} />
         <Route path="terms" element={<TermsConditionsPage/>} />
 
         {/* protected routes */}
