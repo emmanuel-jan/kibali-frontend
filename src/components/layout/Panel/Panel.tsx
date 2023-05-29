@@ -106,36 +106,36 @@ const Panel = (props: any) => {
       ];
     }else if(userInfo?.is_instructor){
       items = [
-        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
+        getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined style={{color:"#f2d3c7"}}/>),
         // getItem(<Link to="courses">My Courses</Link>, "courses", <BookOutlined />),
         getItem(
           <Link to="manage-content">Manage Content</Link>,
           "content",
-          <VideoCameraOutlined />
+          <VideoCameraOutlined style={{color:"#f2d3c7"}} />
         ),
         getItem(
           <Link to="manage-student">Manage Students</Link>,
           "student",
-          <UserOutlined />
+          <UserOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Link to="profile">My profile</Link>,
           "profile",
-          <SolutionOutlined />
+          <SolutionOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <a href="/terms" target="_blank">
             Terms & Conditions
           </a>,
           "terms",
-          <FileDoneOutlined />
+          <FileDoneOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Button ghost onClick={() => logOutUser()}>
             Log out
           </Button>,
           "logout",
-          <PoweroffOutlined />
+          <PoweroffOutlined style={{color:"#f2d3c7"}}/>
         ),
       ];
     }else if(userInfo?.is_parent){
@@ -149,31 +149,31 @@ const Panel = (props: any) => {
         getItem(
           <Link to="manage-student">Manage Students</Link>,
           "student",
-          <UserOutlined />
+          <UserOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Link to="instructor-registration">Instructor Application</Link>,
           "instructor-reg",
-          <SolutionOutlined />
+          <SolutionOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Link to="profile">My profile</Link>,
           "profile",
-          <SolutionOutlined />
+          <SolutionOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <a href="/terms" target="_blank">
             Terms & Conditions
           </a>,
           "terms",
-          <FileDoneOutlined />
+          <FileDoneOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Button ghost onClick={() => logOutUser()}>
             Log out
           </Button>,
           "logout",
-          <PoweroffOutlined />
+          <PoweroffOutlined style={{color:"#f2d3c7"}}/>
         ),
       ];
     }else{
@@ -187,21 +187,21 @@ const Panel = (props: any) => {
         getItem(
           <Link to="profile">My profile</Link>,
           "profile",
-          <SolutionOutlined />
+          <SolutionOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <a href="/terms" target="_blank">
             Terms & Conditions
           </a>,
           "terms",
-          <FileDoneOutlined />
+          <FileDoneOutlined style={{color:"#f2d3c7"}}/>
         ),
         getItem(
           <Button ghost onClick={() => logOutUser()}>
             Log out
           </Button>,
           "logout",
-          <PoweroffOutlined />
+          <PoweroffOutlined style={{color:"#f2d3c7"}} />
         ),
       ];
     }

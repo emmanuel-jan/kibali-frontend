@@ -19,6 +19,8 @@ import {
   MyCourses,
   MyProfile,
   PanelPage,
+  PanelUpgrade,
+  QuizPage,
   RegistrationPage,
   ResetPassword,
   TermsConditionsPage,
@@ -33,17 +35,22 @@ function App() {
       <ScrollToTop />
       <Routes>
         {/* public routes */}
-        <Route index element={< LandingPage/>}/>
+        <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="registration" element={<RegistrationPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="activate/:uid/:token" element={<ActivationPage />} />
-        <Route path="password/reset/confirm/:uid/:token" element={<ResetPassword />} />
-        <Route path="terms" element={<TermsConditionsPage/>} />
+        <Route
+          path="password/reset/confirm/:uid/:token"
+          element={<ResetPassword />}
+        />
+        <Route path="terms" element={<TermsConditionsPage />} />
+        <Route path="panel-upgrade" element={<PanelUpgrade />} />
+
 
         {/* protected routes */}
         <Route path="panel" element={<PanelPage />}>
-          <Route index element={<CategoriesPage/>}/>
+          <Route index element={<CategoriesPage />} />
           <Route path="category/:id" element={<Explore />} />
           <Route path="courses" element={<MyCourses />} />
           <Route path="video-detail/:id" element={<VideoDetail />} />
@@ -57,7 +64,8 @@ function App() {
             path="instructor-registration"
             element={<InstructorRegistration />}
           />
-          <Route path="profile" element={< MyProfile/>} />
+          <Route path="profile" element={<MyProfile />} />
+          <Route path="quiz/:id" element={<QuizPage/>} />
         </Route>
       </Routes>
     </>

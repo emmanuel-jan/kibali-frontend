@@ -17,6 +17,7 @@ import {
   ShareAltOutlined,
   CaretRightOutlined,
   MessageOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
 import {
   Tabs,
@@ -49,7 +50,7 @@ import {
   usePartialApproveCourseByIdMutation,
   useGetApprovedVideosQuery,
   useGetPendingVideosQuery,
-  usePartialUpdatePendingVideosByIdMutation
+  usePartialUpdatePendingVideosByIdMutation,
 } from "../../../../features/administrator/administratorApiSlice";
 import { useGetCoursesByIdQuery } from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
@@ -125,25 +126,13 @@ const AdminContent = (props: any) => {
   const [loading, setLoading] = useState(false);
   // const [data, setData] = useState<DataType[]>([]);
   const { data: videoData } = useGetCoursesByIdQuery(id);
-  const [videoUrl, setVideoUrl] = useState<any>(
-    `${videoData?.videos[0]?.slug}`
-  );
-  const [videoTitle, setVideoTitle] = useState<any>(
-    `${videoData?.videos[0]?.title}`
-  );
-  const [videoFileExtension, setVideoFileExtension] = useState<any>(
-    `${videoData?.videos[0].video_file_extension}`
-  );
+  const [videoUrl, setVideoUrl] = useState<any>("");
+  const [videoTitle, setVideoTitle] = useState<any>("");
+  const [videoFileExtension, setVideoFileExtension] = useState<any>("");
 
-  const [videoUrl2, setVideoUrl2] = useState<any>(
-    `${videoData?.videos[0]?.slug}`
-  );
-  const [videoTitle2, setVideoTitle2] = useState<any>(
-    `${videoData?.videos[0]?.title}`
-  );
-  const [videoFileExtension2, setVideoFileExtension2] = useState<any>(
-    `${videoData?.videos[0].video_file_extension}`
-  );
+  const [videoUrl2, setVideoUrl2] = useState<any>("");
+  const [videoTitle2, setVideoTitle2] = useState<any>("");
+  const [videoFileExtension2, setVideoFileExtension2] = useState<any>("");
   const datass = pendingVideos;
   const approved = approvedVideos;
   const [open, setOpen] = useState(false);
@@ -500,16 +489,43 @@ const AdminContent = (props: any) => {
       children: (
         <>
           <Row justify="center" style={{ padding: "10px", gap: "1rem" }}>
-            <Col xs={24} sm={24} md={15} lg={15}>
-              <VideojsPlayer
-                options={videoJsOptions}
-                onReady={handlePlayerReady}
-              />
+            {videoTitle == "" && videoUrl == "" && videoFileExtension == "" ? (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <div
+                  style={{
+                    background: "black",
+                    height: "350px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <div>
+                    <PlayCircleOutlined
+                      style={{
+                        color: "#fd530c",
+                        fontSize: "200px",
+                        textAlign: "center",
+                      }}
+                    />
+                    <h3 style={{ color: "white", textAlign: "center" }}>
+                      Select Video To Play From List
+                    </h3>
+                  </div>
+                </div>
+              </Col>
+            ) : (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <VideojsPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                />
 
-              <div style={{ padding: "20px" }}>
-                <Text>{videoTitle}</Text>
+                <div style={{ padding: "20px" }}>
+                  <Text>{videoTitle}</Text>
 
-                {/* <Space>
+                  {/* <Space>
                 <IconText
                   icon={StarOutlined}
                   text="156"
@@ -526,8 +542,10 @@ const AdminContent = (props: any) => {
                   key="list-vertical-message"
                 />
               </Space> */}
-              </div>
-            </Col>
+                </div>
+              </Col>
+            )}
+
             <Col xs={24} sm={24} md={8} lg={8}>
               <div
                 id="scrollableDiv"
@@ -623,107 +641,138 @@ const AdminContent = (props: any) => {
       children: (
         <>
           <Row justify="center" style={{ padding: "10px", gap: "1rem" }}>
-            <Col xs={24} sm={24} md={15} lg={15}>
-              <VideojsPlayer
-                options={videoJsOptions2}
-                onReady={handlePlayerReady2}
-              />
-
-              <div style={{ padding: "20px" }}>
-                <Text>{videoTitle2}</Text>
-                <span style={{ float: "right" }}>
-                  <Space.Compact block>
-                    <Tooltip title="Like">
-                      <Button icon={<LikeOutlined />} />
-                    </Tooltip>
-                    <Tooltip title="Comment">
-                      <Button icon={<CommentOutlined />} />
-                    </Tooltip>
-                    <Tooltip title="Star">
-                      <Button icon={<StarOutlined />} />
-                    </Tooltip>
-                    <Tooltip title="Share">
-                      <Button icon={<ShareAltOutlined />} />
-                    </Tooltip>
-                  </Space.Compact>
-                </span>
-
-                {/* <Space>
-                <IconText
-                  icon={StarOutlined}
-                  text="156"
-                  key="list-vertical-star-o"
-                />
-                <IconText
-                  icon={LikeOutlined}
-                  text="156"
-                  key="list-vertical-like-o"
-                />
-                <IconText
-                  icon={MessageOutlined}
-                  text="2"
-                  key="list-vertical-message"
-                />
-              </Space> */}
-              </div>
-              <Collapse
-                bordered={false}
-                expandIcon={({ isActive }) => (
-                  <CaretRightOutlined rotate={isActive ? 90 : 0} />
-                )}
-                size="small"
-              >
-                <Panel header="34K Views 1 year ago" key="1">
-                  <p>{videoData?.description}</p>
-                </Panel>
-              </Collapse>
-              <List
-                itemLayout="vertical"
-                size="small"
-                pagination={{
-                  onChange: (page) => {
-                    console.log(page);
-                  },
-                  pageSize: 3,
-                  align: "center",
-                }}
-                dataSource={datas}
-                header={
-                  <div style={{ cursor: "pointer" }} onClick={showDrawer}>
-                    {" "}
-                    <PlusOutlined /> Add Comment ...
-                  </div>
-                }
-                renderItem={(items) => (
-                  <List.Item
-                    key={items.title}
-                    actions={[
-                      <IconText
-                        icon={StarOutlined}
-                        text="156"
-                        key="list-vertical-star-o"
-                      />,
-                      <IconText
-                        icon={LikeOutlined}
-                        text="156"
-                        key="list-vertical-like-o"
-                      />,
-                      <IconText
-                        icon={MessageOutlined}
-                        text="2"
-                        key="list-vertical-message"
-                      />,
-                    ]}
-                  >
-                    <List.Item.Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={<a href={items.href}>{items.title}</a>}
+            {videoTitle2 == "" &&
+            videoUrl2 == "" &&
+            videoFileExtension2 === "" ? (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <div
+                  style={{
+                    background: "black",
+                    height: "350px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <div>
+                    <PlayCircleOutlined
+                      style={{
+                        color: "#fd530c",
+                        fontSize: "200px",
+                        textAlign: "center",
+                      }}
                     />
-                    {items.content}
-                  </List.Item>
-                )}
-              />
-            </Col>
+                    <h3 style={{ color: "white", textAlign: "center" }}>
+                      Select Video To Play From List
+                    </h3>
+                  </div>
+                </div>
+              </Col>
+            ) : (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <VideojsPlayer
+                  options={videoJsOptions2}
+                  onReady={handlePlayerReady2}
+                />
+
+                <div style={{ padding: "20px" }}>
+                  <Text>{videoTitle2}</Text>
+                  <span style={{ float: "right" }}>
+                    <Space.Compact block>
+                      <Tooltip title="Like">
+                        <Button icon={<LikeOutlined />} />
+                      </Tooltip>
+                      <Tooltip title="Comment">
+                        <Button icon={<CommentOutlined />} />
+                      </Tooltip>
+                      <Tooltip title="Star">
+                        <Button icon={<StarOutlined />} />
+                      </Tooltip>
+                      <Tooltip title="Share">
+                        <Button icon={<ShareAltOutlined />} />
+                      </Tooltip>
+                    </Space.Compact>
+                  </span>
+
+                  {/* <Space>
+            <IconText
+              icon={StarOutlined}
+              text="156"
+              key="list-vertical-star-o"
+            />
+            <IconText
+              icon={LikeOutlined}
+              text="156"
+              key="list-vertical-like-o"
+            />
+            <IconText
+              icon={MessageOutlined}
+              text="2"
+              key="list-vertical-message"
+            />
+          </Space> */}
+                </div>
+                <Collapse
+                  bordered={false}
+                  expandIcon={({ isActive }) => (
+                    <CaretRightOutlined rotate={isActive ? 90 : 0} />
+                  )}
+                  size="small"
+                >
+                  <Panel header="34K Views 1 year ago" key="1">
+                    <p>{videoData?.description}</p>
+                  </Panel>
+                </Collapse>
+                <List
+                  itemLayout="vertical"
+                  size="small"
+                  pagination={{
+                    onChange: (page) => {
+                      console.log(page);
+                    },
+                    pageSize: 3,
+                    align: "center",
+                  }}
+                  dataSource={datas}
+                  header={
+                    <div style={{ cursor: "pointer" }} onClick={showDrawer}>
+                      {" "}
+                      <PlusOutlined /> Add Comment ...
+                    </div>
+                  }
+                  renderItem={(items) => (
+                    <List.Item
+                      key={items.title}
+                      actions={[
+                        <IconText
+                          icon={StarOutlined}
+                          text="156"
+                          key="list-vertical-star-o"
+                        />,
+                        <IconText
+                          icon={LikeOutlined}
+                          text="156"
+                          key="list-vertical-like-o"
+                        />,
+                        <IconText
+                          icon={MessageOutlined}
+                          text="2"
+                          key="list-vertical-message"
+                        />,
+                      ]}
+                    >
+                      <List.Item.Meta
+                        avatar={<Avatar icon={<UserOutlined />} />}
+                        title={<a href={items.href}>{items.title}</a>}
+                      />
+                      {items.content}
+                    </List.Item>
+                  )}
+                />
+              </Col>
+            )}
+
             <Col xs={24} sm={24} md={8} lg={8}>
               <div
                 id="scrollableDiv"
@@ -732,6 +781,7 @@ const AdminContent = (props: any) => {
                   padding: "0 16px",
                   border: "1px solid rgba(140, 140, 140, 0.35)",
                   borderRadius: "10px",
+                  height: "71vh",
                 }}
               >
                 <List

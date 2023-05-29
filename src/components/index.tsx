@@ -14,6 +14,7 @@ export { default as ManageContent } from "./pages/DashboardPages/ManageContent/M
 export { default as ManageStudent } from "./pages/DashboardPages/ManageStudent/ManageStudent";
 export { default as InstructorRegistration } from "./pages/DashboardPages/InstructorRegistration/InstructorRegistration";
 export { default as MyProfile } from "./pages/DashboardPages/MyProfile/MyProfile";
+export { default as QuizPage } from "./pages/DashboardPages/Quiz/Babel";
 
 //admin dashboard pages
 export { default as AdminInstructor } from "./pages/DashboardPages/AdminInstructor/AdminInstructor";
@@ -24,3 +25,6 @@ export { default as AdminStudent } from "./pages/DashboardPages/AdminStudent/Adm
 //public pages
 export { default as LandingPage } from "./pages/PublicPages/LandingPage/LandingPage";
 export { default as TermsConditionsPage } from "./pages/PublicPages/TermsConditionsPage/TermsConditionsPage";
+
+//test panel
+export { default as PanelUpgrade } from "./layout/Panel/PanelUpgrade";

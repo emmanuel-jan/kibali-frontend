@@ -11,6 +11,7 @@ import {
   SettingOutlined,
   EllipsisOutlined,
   EditOutlined,
+  PlayCircleOutlined,
 } from "@ant-design/icons";
 import {
   Tabs,
@@ -35,6 +36,10 @@ import {
   useCreateInstructorVideoMutation,
   useGetInstructorVideosQuery,
   useCreateInstructorCoursesMutation,
+  useCreateQuestionMutation,
+  useGetQuestionQuery,
+  useCreateQuizMutation,
+  useGetInstructorQuizesQuery,
 } from "../../../../features/instructors/instructorsApiSlice";
 import {
   useCreateVideoMutation,
@@ -46,6 +51,7 @@ import {
   useGetCoursesLevelsQuery,
   useGetCoursesTypesQuery,
 } from "../../../../features/courses/coursesApiSlice";
+import { useGetQuizeLevelQuery } from "../../../../features/quizes/quizesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
 import type { SelectProps } from "antd";
 import VideojsPlayer from "../../../VideojsPlayer/VideojsPlayer";
@@ -74,17 +80,45 @@ const ManageContent = (props: any) => {
   const { data: videosList } = useGetInstructorVideosQuery(1);
   const { data: categoryList } = useGetCoursesCategoriesQuery(1);
   const { data: levelList } = useGetCoursesLevelsQuery(1);
+  const { data: quizLevelList } = useGetQuizeLevelQuery(1);
   const { data: typeList } = useGetCoursesTypesQuery(1);
+  const { data: questionList } = useGetQuestionQuery(1);
+  const { data: instructorQuiz } = useGetInstructorQuizesQuery(1);
   const [form] = Form.useForm();
   const [form2] = Form.useForm();
+  const [form3] = Form.useForm();
+  const [form4] = Form.useForm();
   const [video, { isLoading }] = useCreateInstructorVideoMutation();
   const [courses, { isLoading: coursesLoading }] =
     useCreateInstructorCoursesMutation();
+  const [questions, { isLoading: questionsLoading }] =
+    useCreateQuestionMutation();
+  const [quiz, { isLoading: quizLoading }] = useCreateQuizMutation();
   const playerRef = React.useRef<any>(null);
   const datass = videosList;
   const [videoUrl, setVideoUrl] = useState<any>("");
   const [videoTitle, setVideoTitle] = useState<any>("");
   const [videoFileExtension, setVideoFileExtension] = useState<any>("");
+
+  console.log(instructorQuiz);
+
+  const instructorQuizes: SelectProps["options"] = [];
+
+  for (let i = 0; i < instructorQuiz?.length; i++) {
+    instructorQuizes.push({
+      value: instructorQuiz[i]?.id,
+      label: instructorQuiz[i]?.title,
+    });
+  }
+
+  const question: SelectProps["options"] = [];
+
+  for (let i = 0; i < questionList?.length; i++) {
+    question.push({
+      value: questionList[i]?.id,
+      label: questionList[i]?.question_text,
+    });
+  }
 
   const options: SelectProps["options"] = [];
 
@@ -112,6 +146,17 @@ const ManageContent = (props: any) => {
     levels.push({
       value: levelList[i]?.id,
       label: levelList[i]?.name,
+    });
+  }
+
+  console.log(quizLevelList);
+
+  const quizlevels: SelectProps["options"] = [];
+
+  for (let i = 0; i < quizLevelList?.length; i++) {
+    quizlevels.push({
+      value: quizLevelList[i]?.id,
+      label: quizLevelList[i]?.name,
     });
   }
 
@@ -216,10 +261,8 @@ const ManageContent = (props: any) => {
     data.append("title", values.title);
     data.append("description", values.description);
     data.append("video", selectedFile);
-    //data.append("video_category", values.category);
+    data.append("quiz", values.quiz);
     data.append("instructor", instructorData[0]?.id);
-    //data.append("video_file_name", "thename");
-    //data.append("video_file_path", "video/mp4");
 
     try {
       const res = await video(data).unwrap();
@@ -228,6 +271,60 @@ const ManageContent = (props: any) => {
         "Your video has been uploaded successfully, we will approve it shortly";
       openNotificationSuccess();
       form.resetFields();
+    } catch (error: any) {
+      console.log(error);
+      openNotification();
+    }
+  };
+
+  const onFinish3 = async (values: any) => {
+    console.log("Received values of form: ", values);
+
+    const data = {
+      question_text: values.question_text,
+      possible_answers: [
+        `${values.first_choice}`,
+        `${values.second_choice}`,
+        `${values.third_choice}`,
+        `${values.fourth_choice}`,
+      ],
+      correct_answer: values.correct_answer,
+      instructor: instructorData[0]?.id,
+    };
+
+    console.log(data);
+
+    try {
+      const res = await questions(data).unwrap();
+      console.log(res);
+      noficationMsg = "Your question has been uploaded successfully";
+      openNotificationSuccess();
+      form3.resetFields();
+    } catch (error: any) {
+      console.log(error);
+      openNotification();
+    }
+  };
+
+  const onFinish4 = async (values: any) => {
+    console.log("Received values of form: ", values);
+
+    const data = {
+      title: values.title,
+      description: values.description,
+      quiz_level: values.level,
+      instructor: instructorData[0]?.id,
+      questions: values.questionlist,
+    };
+
+    console.log(data);
+
+    try {
+      const res = await quiz(data).unwrap();
+      console.log(res);
+      noficationMsg = "Your quiz has been uploaded successfully";
+      openNotificationSuccess();
+      form4.resetFields();
     } catch (error: any) {
       console.log(error);
       openNotification();
@@ -264,41 +361,7 @@ const ManageContent = (props: any) => {
                   >
                     <Input placeholder="Video Title" />
                   </Form.Item>
-                  {/* <Form.Item
-                name="category"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Select
-                  placeholder="Topic Category"
-                  options={[
-                    { value: "MATHEMATICS", label: "MATHEMATICS" },
-                    { value: "ENGLISH", label: "ENGLISH" },
-                    { value: "CHEMISTRY", label: "CHEMISTRY" },
-                  ]}
-                />
-              </Form.Item> */}
-                  {/* <Form.Item
-                name="category"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Select
-                  placeholder="Choose Form"
-                  options={[
-                    { value: "FORM 1", label: "FORM 1" },
-                    { value: "FORM 2", label: "FORM 2" },
-                    { value: "FORM 3", label: "FORM 3" },
-                    { value: "FORM 4", label: "FORM 4" },
-                  ]}
-                />
-              </Form.Item> */}
+
                   <Form.Item
                     name="description"
                     rules={[
@@ -312,19 +375,7 @@ const ManageContent = (props: any) => {
                       placeholder="Video description goes here..."
                     />
                   </Form.Item>
-                  {/* <Form.Item
-                    name="category"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Choose Video Category"
-                      options={options}
-                    />
-                  </Form.Item> */}
+
                   <Form.Item name="video">
                     Your Video File:
                     <small style={{ color: "red" }}>Upload limit is 20MB</small>
@@ -335,6 +386,12 @@ const ManageContent = (props: any) => {
                     <div style={{ marginTop: 8 }}>Upload</div>
                   </div>
                 </Upload> */}
+                  </Form.Item>
+                  <Form.Item name="quiz">
+                    <Select
+                      placeholder="Choose Quiz"
+                      options={instructorQuizes}
+                    />
                   </Form.Item>
                   <Form.Item>
                     <Button
@@ -476,7 +533,7 @@ const ManageContent = (props: any) => {
                     ]}
                   >
                     <Select
-                      placeholder="Choose Video Videos"
+                      placeholder="Choose Video"
                       mode="multiple"
                       options={videos}
                     />
@@ -554,16 +611,45 @@ const ManageContent = (props: any) => {
             justify="center"
             style={{ padding: "10px", gap: "1rem", minHeight: "91vh" }}
           >
-            <Col xs={24} sm={24} md={15} lg={15}>
-              <VideojsPlayer
-                options={videoJsOptions}
-                onReady={handlePlayerReady}
-              />
+            {videoTitle == "" && videoUrl == "" && videoFileExtension === "" ? (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <div
+                  style={{
+                    background: "black",
+                    height: "350px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "10px"
+                  }}
+                >
+                  <div>
+                    <PlayCircleOutlined
+                      style={{
+                        color: "#fd530c",
+                        fontSize: "200px",
+                        textAlign: "center",
+                      }}
+                    />
+                    <h3 style={{ color: "white", textAlign: "center" }}>
+                      Select Video To Play From List
+                    </h3>
+                  </div>
+                </div>
+              </Col>
+            ) : (
+              <Col xs={24} sm={24} md={15} lg={15}>
+                <VideojsPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                />
 
-              <div style={{ padding: "20px" }}>
-                <Text>{videoTitle}</Text>
-              </div>
-            </Col>
+                <div style={{ padding: "20px" }}>
+                  <Text>{videoTitle}</Text>
+                </div>
+              </Col>
+            )}
+
             <Col xs={24} sm={24} md={8} lg={8}>
               <div
                 id="scrollableDiv"
@@ -572,6 +658,7 @@ const ManageContent = (props: any) => {
                   padding: "0 16px",
                   border: "1px solid rgba(140, 140, 140, 0.35)",
                   borderRadius: "10px",
+                  height: "71vh",
                 }}
               >
                 <List
@@ -607,11 +694,192 @@ const ManageContent = (props: any) => {
         </>
       ),
     },
-    //   {
-    //     key: "3",
-    //     label: `Tab 3`,
-    //     children: `Content of Tab Pane 3`,
-    //   },
+    {
+      key: "4",
+      label: `Add Question`,
+      children: (
+        <>
+          <Row justify="center" style={{ height: "100vh" }}>
+            <Col xs={24} sm={24} md={16} lg={16}>
+              <Title level={4} style={{ color: "#2b243f" }}>
+                <PushpinOutlined />
+                &nbsp; Add questions to your question bank here!
+              </Title>
+              <Card bordered={false}>
+                <Form
+                  form={form3}
+                  name="normal_login"
+                  className="login-form"
+                  onFinish={onFinish3}
+                  validateMessages={validateMessages}
+                >
+                  <Form.Item
+                    label="Whats Your Question?"
+                    name="question_text"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Whats Your Question?" />
+                  </Form.Item>
+                  <Form.Item
+                    name="first_choice"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Choice A" />
+                  </Form.Item>
+                  <Form.Item
+                    name="second_choice"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Choice B" />
+                  </Form.Item>
+                  <Form.Item
+                    name="third_choice"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Choice C" />
+                  </Form.Item>
+                  <Form.Item
+                    name="fourth_choice"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Choice D" />
+                  </Form.Item>
+                  <Form.Item
+                    label="What is the correct answer from the choices given?"
+                    name="correct_answer"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="What is the correct answer from the choices given?" />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      style={{ backgroundColor: "#0a0050" }}
+                      loading={questionsLoading}
+                    >
+                      Add Question
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
+    {
+      key: "5",
+      label: `Publish Quiz`,
+      children: (
+        <>
+          <Row justify="center" style={{ height: "100vh" }}>
+            <Col xs={24} sm={24} md={16} lg={16}>
+              <Title level={4} style={{ color: "#2b243f" }}>
+                <PushpinOutlined />
+                &nbsp; Set Up Your Quiz!
+              </Title>
+              <Card bordered={false}>
+                <Form
+                  form={form4}
+                  name="normal_login"
+                  className="login-form"
+                  onFinish={onFinish4}
+                  validateMessages={validateMessages}
+                >
+                  <Form.Item
+                    name="title"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Quiz Title" />
+                  </Form.Item>
+                  <Form.Item
+                    name="description"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Quiz description goes here..."
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="level"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Choose Quiz Level"
+                      options={quizlevels}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="questionlist"
+                    rules={[
+                      {
+                        required: true,
+                      },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Choose Questions"
+                      mode="multiple"
+                      options={question}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      block
+                      style={{ backgroundColor: "#0a0050" }}
+                      loading={quizLoading}
+                    >
+                      Publish Quiz
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      ),
+    },
   ];
 
   return (

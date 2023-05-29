@@ -75,3 +75,7 @@
 a:hover{
   background-color: #f2d3c7 ;
 }	 */
+
+.menuText :hover{
+  color: #fd530c;
+}

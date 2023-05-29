@@ -10,6 +10,29 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['apis'] 
         }),
+        createQuestion: builder.mutation({
+            query: (instructorInfo) => ({
+                url:"/instructors/questions/create/",
+                method:"POST",
+                body: instructorInfo
+            }),
+            invalidatesTags: ['apis'] 
+        }),
+        getQuestion: builder.query({
+            query: () => ({
+                url:"/instructors/questions",
+                method:"GET",
+            }),
+            providesTags: ['apis']
+        }),
+        createQuiz: builder.mutation({
+            query: (instructorInfo) => ({
+                url:"/instructors/quizzes/create/",
+                method:"POST",
+                body: instructorInfo
+            }),
+            invalidatesTags: ['apis'] 
+        }),
         createInstructorVideo: builder.mutation({
             query: (data) => ({
                 url:"/instructors/videos/create/",
@@ -29,6 +52,13 @@ export const instructorsApiSlice = apiSlice.injectEndpoints({
         getInstructorInfo: builder.query({
             query: () => ({
                 url:"/instructors/",
+                method:"GET"
+            }),
+            providesTags: ['apis']
+        }),
+        getInstructorQuizes: builder.query({
+            query: () => ({
+                url:"/instructors/quizzes",
                 method:"GET"
             }),
             providesTags: ['apis']
@@ -98,5 +128,9 @@ export const {
     useGetInstructorCoursesByIdQuery,
     useCreateInstructorVideoMutation,
     useGetInstructorVideosQuery,
-    useCreateInstructorCoursesMutation
+    useCreateInstructorCoursesMutation,
+    useCreateQuestionMutation,
+    useCreateQuizMutation,
+    useGetQuestionQuery,
+    useGetInstructorQuizesQuery
 } = instructorsApiSlice
