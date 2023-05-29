@@ -4,9 +4,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "../Quiz/Babel.css";
-import { Alert, Button, Col, Row, Spin } from "antd";
-import { useParams } from "react-router-dom";
-import { useGetQuizesByIdQuery } from "../../../../features/quizes/quizesApiSlice";
+import { Alert, Button, Col, Row, Spin, notification } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetQuizesByIdQuery,
+  usePostResultMutation,
+} from "../../../../features/quizes/quizesApiSlice";
+import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 
 const quiz = {
   topic: "Javascript",
@@ -52,10 +56,13 @@ const quiz = {
 
 const Babel = (props: any) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data: quizData, isLoading } = useGetQuizesByIdQuery(id);
+  const [quizResult, { isLoading: resultLoading }] = usePostResultMutation();
   const [activeQuestion, setActiveQuestion] = React.useState(0);
   const [selectedAnswer, setSelectedAnswer] = React.useState<any>("");
   const [showResult, setShowResult] = React.useState(false);
+  const { data: userInfo } = useGetUserInfoQuery(1);
   const [selectedAnswerIndex, setSelectedAnswerIndex] =
     React.useState<any>(null);
   const [result, setResult] = React.useState({
@@ -100,8 +107,45 @@ const Babel = (props: any) => {
 
   const addLeadingZero = (number: any) => (number > 9 ? number : `0${number}`);
 
-  const printResult = () => {
-    console.log(result);
+  let noficationMsg: String;
+
+  const openNotificationSuccess = () => {
+    notification.success({
+      message: "Good News!",
+      description: `${noficationMsg}`,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+      duration: 6.5,
+    });
+  };
+
+  const openNotification = () => {
+    notification.error({
+      message: "Ooops, something went wrong!",
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
+  };
+
+  const printResult = async () => {
+    const data = {
+      score: result.correctAnswers,
+      quiz: id,
+      user: userInfo?.id,
+    };
+    console.log(data);
+    try {
+      const res = await quizResult(data).unwrap();
+      console.log(res);
+      noficationMsg = "Your result has been recorded successfully";
+      openNotificationSuccess();
+      navigate("/panel")
+    } catch (error: any) {
+      console.log(error);
+      openNotification();
+    }
   };
   return (
     <>
@@ -179,7 +223,7 @@ const Babel = (props: any) => {
                     Wrong Answers:<span> {result.wrongAnswers}</span>
                   </p>
                   <div className="flex-right">
-                    <button onClick={printResult}>Submit Quiz</button>
+                    <button onClick={printResult}>Submit Result</button>
                   </div>
                 </div>
               )}

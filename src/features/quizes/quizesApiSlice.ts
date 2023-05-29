@@ -16,11 +16,19 @@ export const quizesApiSlice = apiSlice.injectEndpoints({
             }),
             providesTags:['apis']
         }),
-
+        postResult: builder.mutation({
+            query: (data) => ({
+                url:"/quizzes/results/create/",
+                method:"POST",
+                body: data
+            }),
+            invalidatesTags: ['apis'] 
+        }),
     })
 })
 
 export const {
     useGetQuizeLevelQuery,
-    useGetQuizesByIdQuery
+    useGetQuizesByIdQuery,
+    usePostResultMutation
 } = quizesApiSlice
