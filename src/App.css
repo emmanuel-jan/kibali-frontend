@@ -79,3 +79,7 @@ a:hover{
 .menuText :hover{
   color: #fd530c;
 }
+
+.pointer-events-off {
+  pointer-events: none;
+}
