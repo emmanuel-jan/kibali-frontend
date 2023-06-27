@@ -23,8 +23,10 @@ import {
   QuizPage,
   RegistrationPage,
   ResetPassword,
+  SubscribedCourses,
   TermsConditionsPage,
   VideoDetail,
+  VideoDetailPaid,
 } from "./components";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import CategoriesPage from "./components/pages/DashboardPages/CategoriesPage/CategoriesPage";
@@ -54,12 +56,14 @@ function App() {
           <Route path="category/:id" element={<Explore />} />
           <Route path="courses" element={<MyCourses />} />
           <Route path="video-detail/:id" element={<VideoDetail />} />
+          <Route path="video-detail-paid/:id" element={<VideoDetailPaid />} />
           <Route path="manage-content" element={<ManageContent />} />
           <Route path="manage-student" element={<ManageStudent />} />
           <Route path="admin-instructors" element={<AdminInstructor />} />
           <Route path="admin-users" element={<AdminUsers />} />
           <Route path="admin-content" element={<AdminContent />} />
           <Route path="admin-students" element={<AdminStudent />} />
+          <Route path="subscribed" element={<SubscribedCourses />} />
           <Route
             path="instructor-registration"
             element={<InstructorRegistration />}

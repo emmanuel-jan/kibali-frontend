@@ -8,7 +8,8 @@ import {
   EllipsisOutlined,
   SettingOutlined,
   HomeOutlined,
-  ReadOutlined,
+  DownloadOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -20,30 +21,46 @@ import {
   Card,
   Avatar,
   Space,
-  Button,
+  Tabs,
   Input,
+  Button,
   Skeleton,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  selectCurrentRefresh,
+  selectCurrentToken,
+} from "../../../../features/auth/authSlice";
+import type { TabsProps } from "antd";
+import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
-import { useGetCoursesQuery, useGetCoursesCategoriesQuery } from "../../../../features/courses/coursesApiSlice";
-import videoImg from "../../../../assets/images/subject.svg";
+import {
+  useGetCoursesByIdQuery,
+  useGetCoursesCategoriesByIdQuery,
+} from "../../../../features/courses/coursesApiSlice";
+import videoImg from "../../../../assets/images/video.svg";
 
 const { Search } = Input;
+const onChange = (key: string) => {
+  console.log(key);
+};
+
 const onSearch = (value: string) => console.log(value);
 
 const { Title, Text } = Typography;
 const { Meta } = Card;
-const CategoriesPage = (props: any) => {
-  const { data: categoryList, isLoading } = useGetCoursesCategoriesQuery(1);
-  console.log(categoryList);
+
+const SubscribedCourses = (props: any) => {
+  const { id } = useParams();
+  const { data: userInfo } = useGetUserInfoQuery(1);
+  const { data: courseCollection, isLoading } =
+    useGetCoursesCategoriesByIdQuery("e387b02c-2753-4f57-b494-b5924632cded");
+  console.log(userInfo);
+  console.log(courseCollection);
   return (
     <>
-      <Row
-        justify="center"
-        className="gap_container"
-        style={{ minHeight: "100vh" }}
-      >
+      <Row justify="center" style={{minHeight:"91vh"}} className="gap_container">
         {isLoading ? (
           <>
             <Col xs={22} sm={22} md={7} lg={7}>
@@ -76,9 +93,10 @@ const CategoriesPage = (props: any) => {
           </>
         ) : (
           <>
-            {categoryList?.map((category: any) => (
-              <Col xs={20} sm={20} md={7} lg={7} key={category?.id}>
-                <Link to={`/panel/category/${category?.id}`}>
+            {" "}
+            {courseCollection?.map((video: any) => (
+              <Col xs={22} sm={22} md={7} lg={7} key={video?.id}>
+                <Link to={`/panel/video-detail-paid/${video?.id}`}>
                   <Card
                     hoverable
                     cover={
@@ -90,11 +108,20 @@ const CategoriesPage = (props: any) => {
                     }
                   >
                     <Meta
-                      avatar={<Avatar icon={<ReadOutlined />} />}
-                      title={category?.name}
+                      avatar={<Avatar icon={<UserOutlined />} />}
+                      title={video?.title}
                       description={
                         <>
-                          <Text type="secondary">{category?.description}</Text>
+                          <Text type="secondary">
+                            {video?.instructor?.user?.first_name}&nbsp;
+                            {video?.instructor?.user?.last_name}
+                          </Text>
+                          <Text
+                            type="secondary"
+                            style={{ float: "right", color: "#fd4901" }}
+                          >
+                            Free
+                          </Text>
                         </>
                       }
                     />
@@ -109,6 +136,6 @@ const CategoriesPage = (props: any) => {
   );
 };
 
-CategoriesPage.propTypes = {};
+SubscribedCourses.propTypes = {};
 
-export default CategoriesPage;
+export default SubscribedCourses;

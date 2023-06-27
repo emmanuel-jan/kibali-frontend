@@ -9,6 +9,7 @@ import {
   SettingOutlined,
   HomeOutlined,
   DownloadOutlined,
+  PlusCircleOutlined,
 } from "@ant-design/icons";
 import {
   Layout,
@@ -34,7 +35,10 @@ import {
 import type { TabsProps } from "antd";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
-import { useGetCoursesByIdQuery, useGetCoursesCategoriesByIdQuery } from "../../../../features/courses/coursesApiSlice";
+import {
+  useGetCoursesByIdQuery,
+  useGetCoursesCategoriesByIdQuery,
+} from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
 
 const { Search } = Input;
@@ -48,11 +52,16 @@ const { Title, Text } = Typography;
 const { Meta } = Card;
 
 const Explore = (props: any) => {
-  const {id} = useParams();
+  const { id } = useParams();
   const { data: userInfo } = useGetUserInfoQuery(1);
-  const { data: courseCollection, isLoading } = useGetCoursesCategoriesByIdQuery(id);
+  const { data: courseCollection, isLoading } =
+    useGetCoursesCategoriesByIdQuery(id);
   console.log(userInfo);
   console.log(courseCollection);
+
+  const addToCart = () => {
+    console.log("Clicked");
+  };
 
   const items: TabsProps["items"] = [
     {
@@ -162,7 +171,16 @@ const Explore = (props: any) => {
               <>
                 {" "}
                 {courseCollection?.map((video: any) => (
-                  <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
+                  <Col
+                    xs={24}
+                    sm={24}
+                    md={7}
+                    lg={7}
+                    key={video?.id}
+                  >
+                    <Button style={{}} onClick={addToCart}>
+                    <PlusCircleOutlined />&nbsp;Add to Cart
+                    </Button>
                     <Link to={`/panel/video-detail/${video?.id}`}>
                       <Card
                         hoverable
@@ -179,8 +197,14 @@ const Explore = (props: any) => {
                           title={video?.title}
                           description={
                             <>
-                              <Text type="secondary">{video?.instructor?.user?.first_name}&nbsp;{video?.instructor?.user?.last_name}</Text>
-                              <Text type="secondary" style={{ float: "right", color:"#fd4901" }}>
+                              <Text type="secondary">
+                                {video?.instructor?.user?.first_name}&nbsp;
+                                {video?.instructor?.user?.last_name}
+                              </Text>
+                              <Text
+                                type="secondary"
+                                style={{ float: "right", color: "#fd4901" }}
+                              >
                                 Free
                               </Text>
                             </>

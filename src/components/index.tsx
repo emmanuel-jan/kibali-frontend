@@ -15,6 +15,8 @@ export { default as ManageStudent } from "./pages/DashboardPages/ManageStudent/M
 export { default as InstructorRegistration } from "./pages/DashboardPages/InstructorRegistration/InstructorRegistration";
 export { default as MyProfile } from "./pages/DashboardPages/MyProfile/MyProfile";
 export { default as QuizPage } from "./pages/DashboardPages/Quiz/Babel";
+export { default as SubscribedCourses } from "./pages/DashboardPages/SubscribedCourses/SubscribedCourses";
+export { default as VideoDetailPaid } from "./pages/DashboardPages/VideoDetail/VideoDetailPaid";
 
 //admin dashboard pages
 export { default as AdminInstructor } from "./pages/DashboardPages/AdminInstructor/AdminInstructor";

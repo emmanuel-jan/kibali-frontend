@@ -141,7 +141,6 @@ const VideoDetail = (props: any) => {
   const { data: userInfo } = useGetUserInfoQuery(1);
   const datass = videoData?.videos;
   const [open, setOpen] = useState(false);
-  const subscription = false;
 
   const showDrawer = () => {
     setOpen(true);
@@ -158,18 +157,6 @@ const VideoDetail = (props: any) => {
       user: userInfo?.id,
     };
     console.log(data);
-  };
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
   };
 
   console.log(videoData);
@@ -201,149 +188,8 @@ const VideoDetail = (props: any) => {
     });
   };
 
-  const items: TabsProps["items"] = [
-    {
-      key: "1",
-      label: `Mpesa`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={24} lg={24}>
-              <Card bordered={false}>
-                <Alert
-                  message="After clicking on the make payment button, you should receive an STK push on your phone"
-                  type="info"
-                  showIcon
-                />
-                <br />
-                <Form
-                  form={form}
-                  name="normal_login"
-                  className="login-form"
-                  onFinish={onFinish}
-                  validateMessages={validateMessages}
-                >
-                  <Form.Item
-                    name="plan"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
-                  >
-                    <Select
-                      placeholder="Choose Subscription Plan"
-                      options={[
-                        { value: "100", label: "Daily (Ksh 100)" },
-                        { value: "400", label: "Weekly (Ksh 400)" },
-                        { value: "1500", label: "Monthly(Ksh 1500)" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item
-                    name="phone"
-                    rules={[
-                      {
-                        required: true,
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Phone Number" />
-                  </Form.Item>
-
-                  <Form.Item>
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      block
-                      style={{ backgroundColor: "#0a0050" }}
-                    >
-                      Make Payment
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </Card>
-            </Col>
-          </Row>
-        </>
-      ),
-    },
-    {
-      key: "2",
-      label: `Card`,
-      children: (
-        <Row justify="center" className="gap_container">
-          <Col xs={24} sm={24} md={24} lg={24}>
-            <Card bordered={false}>
-              <Form
-                form={form}
-                name="normal_login"
-                className="login-form"
-                onFinish={onFinish}
-                validateMessages={validateMessages}
-              >
-                <Form.Item
-                  name="plan"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <Select
-                    placeholder="Choose Subscription Plan"
-                    options={[
-                      { value: "100", label: "Daily (Ksh 100)" },
-                      { value: "400", label: "Weekly (Ksh 400)" },
-                      { value: "1500", label: "Monthly(Ksh 1500)" },
-                    ]}
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="card"
-                  rules={[
-                    {
-                      required: true,
-                    },
-                  ]}
-                >
-                  <Input placeholder="Card Number" />
-                </Form.Item>
-
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    block
-                    style={{ backgroundColor: "#0a0050" }}
-                  >
-                    Make Payment
-                  </Button>
-                </Form.Item>
-              </Form>
-            </Card>
-          </Col>
-        </Row>
-      ),
-    },
-  ];
-
   return (
     <>
-      <Modal
-        title="Unlock the Power of Subscription!"
-        open={isModalOpen}
-        onCancel={handleCancel}
-        okButtonProps={{ style: { display: "none" } }}
-        cancelButtonProps={{ style: { display: "none" } }}
-      >
-        <p style={{ textAlign: "center" }}>
-          The captivating world of this course awaits you! To unlock its
-          countless wonders, all you need to do is navigate to our{" "}
-          <Link to="/panel">explore page</Link> and embark on a thrilling subscription
-          voyage.
-        </p>
-      </Modal>
       <Row
         justify="center"
         style={{ padding: "10px", gap: "1rem", minHeight: "91vh" }}
@@ -399,24 +245,6 @@ const VideoDetail = (props: any) => {
                   </Tooltip>
                 </Space.Compact>
               </span>
-
-              {/* <Space>
-                  <IconText
-                    icon={StarOutlined}
-                    text="156"
-                    key="list-vertical-star-o"
-                  />
-                  <IconText
-                    icon={LikeOutlined}
-                    text="156"
-                    key="list-vertical-like-o"
-                  />
-                  <IconText
-                    icon={MessageOutlined}
-                    text="2"
-                    key="list-vertical-message"
-                  />
-                </Space> */}
             </div>
             <Collapse
               bordered={false}
@@ -509,13 +337,9 @@ const VideoDetail = (props: any) => {
                 <List.Item
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    if (subscription) {
-                      setVideoUrl(item?.slug);
-                      setVideoTitle(item?.title);
-                      setVideoFileExtension(item?.video_file_extension);
-                    } else {
-                      showModal();
-                    }
+                    setVideoUrl(item?.slug);
+                    setVideoTitle(item?.title);
+                    setVideoFileExtension(item?.video_file_extension);
                   }}
                 >
                   <List.Item.Meta
@@ -524,9 +348,7 @@ const VideoDetail = (props: any) => {
                   />
                   <Button
                     onClick={() => {
-                      if (subscription) {
-                        navigate(`/panel/quiz/${item?.quiz?.id}`);
-                      }
+                      navigate(`/panel/quiz/${item?.quiz?.id}`);
                     }}
                     disabled={item?.quiz?.id == undefined ? true : false}
                   >
