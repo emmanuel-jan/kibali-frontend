@@ -68,7 +68,7 @@ const MyProfile = (props: any) => {
         </Row>
         <Row>
           <Col xs={22} sm={22} md={12} lg={12}>
-            <DescriptionItem title="Country" content={userInfo?.country} />
+            <DescriptionItem title="Country" content={userInfo?.country?.name} />
           </Col>
         </Row>
         <Row>
@@ -82,7 +82,7 @@ const MyProfile = (props: any) => {
         <Divider />
         <b className="site-description-item-profile-p">Roles</b>
         <Row>
-          {userInfo.is_parent ? (
+          {userInfo?.is_parent ? (
             <Col xs={22} sm={22} md={12} lg={12}>
               <DescriptionItem
                 title="Parent"
@@ -90,7 +90,7 @@ const MyProfile = (props: any) => {
               />
             </Col>
           ) : null}
-          {userInfo.is_instructor ? (
+          {userInfo?.is_instructor ? (
             <Col xs={22} sm={22} md={12} lg={12}>
               <DescriptionItem
                 title="Instructor"
@@ -98,7 +98,7 @@ const MyProfile = (props: any) => {
               />
             </Col>
           ) : null}
-          {userInfo.is_staff ? (
+          {userInfo?.is_staff ? (
             <Col xs={22} sm={22} md={12} lg={12}>
               <DescriptionItem
                 title="Admin"
@@ -106,7 +106,7 @@ const MyProfile = (props: any) => {
               />
             </Col>
           ) : null}
-          {userInfo.is_moderator ? (
+          {userInfo?.is_moderator ? (
             <Col xs={22} sm={22} md={12} lg={12}>
               <DescriptionItem
                 title="Moderator"
@@ -114,7 +114,7 @@ const MyProfile = (props: any) => {
               />
             </Col>
           ) : null}
-          {userInfo.is_student ? (
+          {userInfo?.is_student ? (
             <Col xs={22} sm={22} md={12} lg={12}>
               <DescriptionItem
                 title="Student"
