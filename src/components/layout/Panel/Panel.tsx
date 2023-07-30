@@ -148,7 +148,11 @@ const Panel = (props: any) => {
 
   if (userInfo?.is_staff) {
     items = [
-      getItem(<Link to="subscribed">Subscribed Courses</Link>, "subscribe", <DollarOutlined />),
+      getItem(
+        <Link to="subscribed">Subscribed Courses</Link>,
+        "subscribe",
+        <DollarOutlined />
+      ),
       getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
       getItem(
         <Link to="admin-content">Content</Link>,
@@ -188,7 +192,11 @@ const Panel = (props: any) => {
     ];
   } else if (userInfo?.is_instructor) {
     items = [
-      getItem(<Link to="subscribed">Subscribed Courses</Link>, "subscribe", <DollarOutlined />),
+      getItem(
+        <Link to="subscribed">Subscribed Courses</Link>,
+        "subscribe",
+        <DollarOutlined />
+      ),
       getItem(
         <Link to="">Explore</Link>,
         "explore",
@@ -227,7 +235,11 @@ const Panel = (props: any) => {
     ];
   } else if (userInfo?.is_parent) {
     items = [
-      getItem(<Link to="subscribed">Subscribed Courses</Link>, "subscribe", <DollarOutlined />),
+      getItem(
+        <Link to="subscribed">Subscribed Courses</Link>,
+        "subscribe",
+        <DollarOutlined />
+      ),
       getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
       // getItem(
       //   <Link to="courses">My Courses</Link>,
@@ -264,9 +276,13 @@ const Panel = (props: any) => {
         <PoweroffOutlined style={{ color: "#f2d3c7" }} />
       ),
     ];
-  } else {
+  } else if (userInfo?.is_student) {
     items = [
-      getItem(<Link to="subscribed">Subscribed Courses</Link>, "subscribe", <DollarOutlined />),
+      getItem(
+        <Link to="subscribed">Subscribed Courses</Link>,
+        "subscribe",
+        <DollarOutlined />
+      ),
       getItem(<Link to="">Explore</Link>, "explore", <CompassOutlined />),
       // getItem(
       //   <Link to="courses">My Courses</Link>,
@@ -293,6 +309,8 @@ const Panel = (props: any) => {
         <PoweroffOutlined style={{ color: "#f2d3c7" }} />
       ),
     ];
+  } else {
+    items = [];
   }
 
   const itemss: TabsProps["items"] = [
@@ -443,7 +461,7 @@ const Panel = (props: any) => {
       >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={12} lg={12}>
-            <Title style={{ margin: 0, paddingTop: "7px", color: "white" }}>
+            <Title style={{ margin: 0, paddingTop: "5px", color: "white" }}>
               <DingtalkOutlined />
               Kibali
             </Title>
@@ -502,7 +520,9 @@ const Panel = (props: any) => {
               onClose={onClose}
               open={open}
             >
-              <Button block onClick={() => showModal()}>Checkout Here</Button>
+              <Button block onClick={() => showModal()}>
+                Checkout Here
+              </Button>
               <List
                 itemLayout="horizontal"
                 dataSource={data}

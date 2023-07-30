@@ -37,7 +37,7 @@ import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
 import {
   useGetCoursesByIdQuery,
-  useGetCoursesCategoriesByIdQuery,
+  useGetCoursesCategoriesByIdsQuery,
 } from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
 
@@ -55,7 +55,7 @@ const SubscribedCourses = (props: any) => {
   const { id } = useParams();
   const { data: userInfo } = useGetUserInfoQuery(1);
   const { data: courseCollection, isLoading } =
-    useGetCoursesCategoriesByIdQuery("e387b02c-2753-4f57-b494-b5924632cded");
+    useGetCoursesCategoriesByIdsQuery("e387b02c-2753-4f57-b494-b5924632cded");
   console.log(userInfo);
   console.log(courseCollection);
   return (

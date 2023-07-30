@@ -348,7 +348,7 @@ const VideoDetail = (props: any) => {
         justify="center"
         style={{ padding: "10px", gap: "1rem", minHeight: "91vh" }}
       >
-        {videoTitle == "" && videoUrl == "" && videoFileExtension === "" ? (
+        {/* {videoTitle == "" && videoUrl == "" && videoFileExtension === "" ? (
           <Col xs={24} sm={24} md={15} lg={15}>
             <div
               style={{
@@ -400,7 +400,7 @@ const VideoDetail = (props: any) => {
                 </Space.Compact>
               </span>
 
-              {/* <Space>
+              <Space>
                   <IconText
                     icon={StarOutlined}
                     text="156"
@@ -416,7 +416,7 @@ const VideoDetail = (props: any) => {
                     text="2"
                     key="list-vertical-message"
                   />
-                </Space> */}
+                </Space>
             </div>
             <Collapse
               bordered={false}
@@ -476,9 +476,9 @@ const VideoDetail = (props: any) => {
               )}
             />
           </Col>
-        )}
+        )} */}
 
-        <Col xs={24} sm={24} md={8} lg={8}>
+        <Col xs={24} sm={24} md={12} lg={12}>
           <div
             id="scrollableDiv"
             style={{
@@ -488,6 +488,7 @@ const VideoDetail = (props: any) => {
               borderRadius: "10px",
               height: "81vh",
             }}
+            className="box-shadow"
           >
             <List
               header={

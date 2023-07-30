@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   Layout,
@@ -26,6 +26,9 @@ import {
   useGetCountriesQuery,
 } from "../../../../features/auth/registerUserApiSlice";
 import type { SelectProps } from "antd";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -39,11 +42,13 @@ const validateMessages = {
 };
 
 const RegistrationPage = (props: any) => {
+  const token = useSelector(selectCurrentToken);
   const [register, { isLoading }] = useRegisterUserMutation();
   const [activationMsg, setActivationMsg] = useState<any>("");
   const { data: countries } = useGetCountriesQuery(1);
   const [form] = Form.useForm();
   const options: SelectProps["options"] = [];
+  const navigate = useNavigate();
 
   for (let i = 0; i < countries?.length; i++) {
     options.push({
@@ -76,6 +81,11 @@ const RegistrationPage = (props: any) => {
       },
     });
   };
+
+  useEffect(() => {
+    if(token)
+      navigate("/panel");
+  }, []);
 
   const onFinish = async (values: any) => {
     if (values.password !== values.re_password) {
@@ -129,7 +139,7 @@ const RegistrationPage = (props: any) => {
       >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={24} lg={24}>
-            <Title style={{ margin: 0, paddingTop: "10px", color: "white" }}>
+            <Title style={{ margin: 0, paddingTop: "5px", color: "white" }}>
               <DingtalkOutlined />
               Kibali
             </Title>
@@ -189,7 +199,7 @@ const RegistrationPage = (props: any) => {
                     />
                   </Form.Item>
                   <Form.Item
-                    name="phone"
+                    name="phone_number"
                     rules={[
                       {
                         required: true,

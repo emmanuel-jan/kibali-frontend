@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   UploadOutlined,
   UserOutlined,
@@ -25,6 +25,7 @@ import {
   Input,
   Button,
   Skeleton,
+  Alert,
 } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -37,6 +38,7 @@ import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useGetVideosQuery } from "../../../../features/videos/videosApiSlice";
 import {
   useGetCoursesByIdQuery,
+  useGetCoursesLevelsQuery,
   useGetCoursesCategoriesByIdQuery,
 } from "../../../../features/courses/coursesApiSlice";
 import videoImg from "../../../../assets/images/video.svg";
@@ -53,9 +55,18 @@ const { Meta } = Card;
 
 const Explore = (props: any) => {
   const { id } = useParams();
+  const [year, setYear] = useState<any>("");
+  const [yearName, setYearName] = useState<any>("");
   const { data: userInfo } = useGetUserInfoQuery(1);
+  const { data: courseLevels } = useGetCoursesLevelsQuery(1);
+  console.log(courseLevels);
+  let data = {
+    id: id,
+    yearId: year,
+  };
   const { data: courseCollection, isLoading } =
-    useGetCoursesCategoriesByIdQuery(id);
+    useGetCoursesCategoriesByIdQuery(data);
+
   console.log(userInfo);
   console.log(courseCollection);
 
@@ -63,123 +74,93 @@ const Explore = (props: any) => {
     console.log("Clicked");
   };
 
-  const items: TabsProps["items"] = [
-    {
-      key: "1",
-      label: `Year 1 - 2`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16}>
-              <Search placeholder="Search..." onSearch={onSearch} enterButton />
+  const refresh = useSelector(selectCurrentRefresh);
+  const token = useSelector(selectCurrentToken);
+
+  console.log(refresh);
+  console.log(token);
+  return (
+    <>
+      <Row justify="center">
+        <Col xs={22} sm={22} md={16} lg={16} className="containers">
+          <Space>
+            <Button
+              style={{ backgroundColor: "#f2d3c7" }}
+              shape="round"
+              size="small"
+              onClick={() => {
+                setYear("");
+              }}
+            >
+              All
+            </Button>
+            {courseLevels?.map((levels: any) => (
+              <Button
+                style={{ backgroundColor: "#f2d3c7" }}
+                shape="round"
+                size="small"
+                onClick={() => {
+                  setYear(levels?.id);
+                  setYearName(levels?.name);
+                }}
+              >
+                {levels.name}
+              </Button>
+            ))}
+          </Space>
+        </Col>
+      </Row>
+      <Row
+        justify="center"
+        style={{ minHeight: "100vh" }}
+        className="gap_container"
+      >
+        {isLoading ? (
+          <>
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>{" "}
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>{" "}
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>{" "}
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>{" "}
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>{" "}
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
             </Col>
-          </Row>
-          {/* <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16} className="containers">
-              <Space>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  All
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  English
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Mathematics
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Sciences
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  History
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Geography
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Business
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Computer Studies
-                </Button>
-              </Space>
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
             </Col>
-          </Row> */}
-          <Row justify="center" className="gap_container">
-            {isLoading ? (
-              <>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>{" "}
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>{" "}
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>{" "}
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>{" "}
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>{" "}
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-              </>
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>
+            <Col xs={24} sm={24} md={7} lg={7}>
+              <Skeleton active />
+            </Col>
+          </>
+        ) : (
+          <>
+            {courseCollection?.length === 0 ? (
+              <Col xs={22} sm={22} md={8} lg={8}>
+                <Alert
+                  message={`Unfortunately there is no content for ${yearName}`}
+                  type="info"
+                />
+              </Col>
             ) : (
               <>
-                {" "}
                 {courseCollection?.map((video: any) => (
-                  <Col
-                    xs={24}
-                    sm={24}
-                    md={7}
-                    lg={7}
-                    key={video?.id}
-                  >
+                  <Col xs={22} sm={22} md={7} lg={7} key={video?.id}>
                     <Button style={{}} onClick={addToCart}>
-                    <PlusCircleOutlined />&nbsp;Add to Cart
+                      <PlusCircleOutlined />
+                      &nbsp;Add to Cart
                     </Button>
                     <Link to={`/panel/video-detail/${video?.id}`}>
                       <Card
@@ -192,501 +173,27 @@ const Explore = (props: any) => {
                           />
                         }
                       >
-                        <Meta
-                          avatar={<Avatar icon={<UserOutlined />} />}
-                          title={video?.title}
-                          description={
-                            <>
-                              <Text type="secondary">
-                                {video?.instructor?.user?.first_name}&nbsp;
-                                {video?.instructor?.user?.last_name}
-                              </Text>
-                              <Text
-                                type="secondary"
-                                style={{ float: "right", color: "#fd4901" }}
-                              >
-                                Free
-                              </Text>
-                            </>
-                          }
-                        />
+                        <Title
+                          level={5}
+                        >{`${video?.title} (${video?.course_level?.name})`}</Title>
+                        <Text type="secondary">
+                          {video?.instructor?.user?.first_name}&nbsp;
+                          {video?.instructor?.user?.last_name}
+                        </Text>
+                        <Text
+                          type="secondary"
+                          style={{ float: "right", color: "#fd4901" }}
+                        >
+                          Free
+                        </Text>
                       </Card>
                     </Link>
                   </Col>
                 ))}
               </>
             )}
-          </Row>
-        </>
-      ),
-    },
-    {
-      key: "2",
-      label: `Year 3 - 7`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16}>
-              <Search placeholder="Search..." onSearch={onSearch} enterButton />
-            </Col>
-          </Row>
-          {/* <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16} className="containers">
-              <Space>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  All
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  English
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Mathematics
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Sciences
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  History
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Geography
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Business
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Computer Studies
-                </Button>
-              </Space>
-            </Col>
-          </Row> */}
-          <Row justify="center" className="gap_container">
-            {isLoading ? (
-              <>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-                <Col xs={24} sm={24} md={7} lg={7}>
-                  <Skeleton active />
-                </Col>
-              </>
-            ) : (
-              <>
-                {courseCollection?.videos?.map((video: any) => (
-                  <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                    <Link to={`/panel/video-detail/${video?.id}`}>
-                      <Card
-                        hoverable
-                        cover={
-                          <img
-                            alt="example"
-                            style={{ padding: "25px" }}
-                            src={videoImg}
-                          />
-                        }
-                      >
-                        <Meta
-                          avatar={<Avatar icon={<UserOutlined />} />}
-                          title={video?.title}
-                          description={
-                            <>
-                              <Text type="secondary">Jim Gordon</Text>
-                              <Text type="secondary" style={{ float: "right" }}>
-                                Free
-                              </Text>
-                            </>
-                          }
-                        />
-                      </Card>
-                    </Link>
-                  </Col>
-                ))}
-              </>
-            )}
-          </Row>
-        </>
-      ),
-    },
-    {
-      key: "3",
-      label: `Year 8 - 9`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16}>
-              <Search placeholder="Search..." onSearch={onSearch} enterButton />
-            </Col>
-          </Row>
-          {/* <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16} className="containers">
-              <Space>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  All
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  English
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Mathematics
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Sciences
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  History
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Geography
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Business
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Computer Studies
-                </Button>
-              </Space>
-            </Col>
-          </Row> */}
-          <Row justify="center" className="gap_container">
-            {courseCollection?.videos?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/video-detail/${video?.id}`}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        style={{ padding: "25px" }}
-                        src={videoImg}
-                      />
-                    }
-                  >
-                    <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
-                      description={
-                        <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </Col>
-            ))}
-          </Row>
-        </>
-      ),
-    },
-    {
-      key: "4",
-      label: `Year 10 - 11`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16}>
-              <Search placeholder="Search..." onSearch={onSearch} enterButton />
-            </Col>
-          </Row>
-          {/* <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16} className="containers">
-              <Space>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  All
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  English
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Mathematics
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Sciences
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  History
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Geography
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Business
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Computer Studies
-                </Button>
-              </Space>
-            </Col>
-          </Row> */}
-          <Row justify="center" className="gap_container">
-            {courseCollection?.videos?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/video-detail/${video?.id}`}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        style={{ padding: "25px" }}
-                        src={videoImg}
-                      />
-                    }
-                  >
-                    <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
-                      description={
-                        <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </Col>
-            ))}
-          </Row>
-        </>
-      ),
-    },
-    {
-      key: "5",
-      label: `Year 12 - 13`,
-      children: (
-        <>
-          <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16}>
-              <Search placeholder="Search..." onSearch={onSearch} enterButton />
-            </Col>
-          </Row>
-          {/* <Row justify="center">
-            <Col xs={24} sm={24} md={16} lg={16} className="containers">
-              <Space>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  All
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  English
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Mathematics
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Sciences
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  History
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Geography
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Business
-                </Button>
-                <Button
-                  style={{ backgroundColor: "#f2d3c7" }}
-                  shape="round"
-                  size="small"
-                >
-                  Computer Studies
-                </Button>
-              </Space>
-            </Col>
-          </Row> */}
-          <Row justify="center" className="gap_container">
-            {courseCollection?.videos?.map((video: any) => (
-              <Col xs={24} sm={24} md={7} lg={7} key={video?.id}>
-                <Link to={`/panel/video-detail/${video?.id}`}>
-                  <Card
-                    hoverable
-                    cover={
-                      <img
-                        alt="example"
-                        style={{ padding: "25px" }}
-                        src={videoImg}
-                      />
-                    }
-                  >
-                    <Meta
-                      avatar={<Avatar icon={<UserOutlined />} />}
-                      title={video?.title}
-                      description={
-                        <>
-                          <Text type="secondary">Jim Gordon</Text>
-                          <Text type="secondary" style={{ float: "right" }}>
-                            Free
-                          </Text>
-                        </>
-                      }
-                    />
-                  </Card>
-                </Link>
-              </Col>
-            ))}
-          </Row>
-        </>
-      ),
-    },
-  ];
-
-  const refresh = useSelector(selectCurrentRefresh);
-  const token = useSelector(selectCurrentToken);
-
-  console.log(refresh);
-  console.log(token);
-  return (
-    <>
-      <Row justify="center" style={{ minHeight: "100vh" }}>
-        <Col xs={20} sm={20} md={20} lg={20}>
-          <Tabs
-            defaultActiveKey="1"
-            centered
-            items={items}
-            onChange={onChange}
-          />
-        </Col>
+          </>
+        )}
       </Row>
     </>
   );

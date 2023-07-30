@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Layout,
@@ -18,6 +18,9 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useSendResetEmailMutation } from "../../../../features/auth/registerUserApiSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -30,9 +33,11 @@ const validateMessages = {
 };
 
 const ForgotPasswordPage = (props: any) => {
+  const token = useSelector(selectCurrentToken);
   const [form] = Form.useForm();
   let noficationMsg: String;
   const [sendEmail, { isLoading }] = useSendResetEmailMutation();
+  const navigate = useNavigate();
 
   const openNotificationSuccess = () => {
     notification.success({
@@ -54,6 +59,12 @@ const ForgotPasswordPage = (props: any) => {
       },
     });
   };
+
+  useEffect(() => {
+    if(token)
+      navigate("/panel");
+  }, []);
+
   const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
     try {
@@ -81,7 +92,7 @@ const ForgotPasswordPage = (props: any) => {
       >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={24} lg={24}>
-            <Title style={{ margin: 0, paddingTop: "10px", color: "white" }}>
+            <Title style={{ margin: 0, paddingTop: "5px", color: "white" }}>
               <DingtalkOutlined />
               Kibali
             </Title>

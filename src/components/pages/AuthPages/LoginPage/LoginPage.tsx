@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Layout, Col, Row, Form, Button, Input, Typography, notification } from "antd";
+import {
+  Layout,
+  Col,
+  Row,
+  Form,
+  Button,
+  Input,
+  Typography,
+  notification,
+} from "antd";
 import {
   LockOutlined,
   UserOutlined,
@@ -13,6 +22,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../../features/auth/authSlice";
 import { useLoginMutation } from "../../../../features/auth/authApiSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../../../features/auth/authSlice";
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -25,6 +36,7 @@ const validateMessages = {
 };
 
 const LoginPage = (props: any) => {
+  const token = useSelector(selectCurrentToken);
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLInputElement>(null);
   const [errMsg, setErrMsg] = useState("");
@@ -38,7 +50,7 @@ const LoginPage = (props: any) => {
     notification.error({
       message: "Ooops, something went wrong!",
       description: `${noficationMsg}`,
-      placement:"topLeft",
+      placement: "topLeft",
       onClick: () => {
         console.log("Notification Clicked!");
       },
@@ -47,6 +59,8 @@ const LoginPage = (props: any) => {
 
   useEffect(() => {
     userRef.current?.focus();
+    if(token)
+      navigate("/panel");
   }, []);
 
   const onFinish = async (values: any) => {
@@ -77,7 +91,7 @@ const LoginPage = (props: any) => {
       >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={24} lg={24}>
-            <Title style={{ margin: 0, paddingTop: "10px", color: "white" }}>
+            <Title style={{ margin: 0, paddingTop: "5px", color: "white" }}>
               <DingtalkOutlined />
               Kibali
             </Title>
@@ -133,14 +147,14 @@ const LoginPage = (props: any) => {
                       htmlType="submit"
                       block
                       style={{ backgroundColor: "#0a0050" }}
-                      loading = {isLoading}
+                      loading={isLoading}
                     >
                       Log in
                     </Button>
                   </Form.Item>
                   <Form.Item style={{ textAlign: "center" }}>
                     Or&nbsp;
-                    <Link to="/forgot-password" className="thelinks"  style={{  }}>
+                    <Link to="/forgot-password" className="thelinks" style={{}}>
                       Forgot password?
                     </Link>
                   </Form.Item>

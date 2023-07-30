@@ -25,6 +25,7 @@ import {
 import { Link } from "react-router-dom";
 import { useGetUserInfoQuery } from "../../../../features/auth/authApiSlice";
 import { useCreateInstructorMutation } from "../../../../features/instructors/instructorsApiSlice";
+import type { DatePickerProps } from 'antd';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -49,8 +50,14 @@ const InstructorRegistration = (props: any) => {
   const [form] = Form.useForm();
   const { data: userInfo } = useGetUserInfoQuery(1);
   const [selectedFile, setSelectedFile] = useState<any>("");
+  const [inputDate, setInputDate] = useState<any>("");
   const [docFile, setDocFile] = useState<any>("");
   let noficationMsg: String;
+
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    //console.log(date, dateString);
+    setInputDate(dateString);
+  };
 
   const changeHandler = (event: any) => {
     setSelectedFile(event.target.files[0]);
@@ -84,6 +91,7 @@ const InstructorRegistration = (props: any) => {
     //using dot notation to new add properties to an object
     // values.instructor_image = values.instructor_images[0];
     // values.instructor_documents = values.instructor_docs[0];
+    values.date_of_birth = inputDate;
     values.user = userInfo?.id;
 
     console.log(values);
@@ -114,12 +122,11 @@ const InstructorRegistration = (props: any) => {
 
   return (
     <Row justify="center" style={{ minHeight: "100vh", padding: "10px" }}>
-      <Col xs={22} sm={22} md={12} lg={12}>
-        <Title level={4} type="secondary" style={{ color: "#0a0050" }}>
+      <Col xs={22} sm={22} md={12} lg={12} className="box-shadow" style={{padding: "20px", backgroundColor:"white", borderRadius:"10px"}}>
+        <Title level={4} type="secondary" style={{ color: "#0a0050", marginTop:"0px", textAlign:"center" }}>
           <SolutionOutlined />
           &nbsp; Become an instructor today!
         </Title>
-        <Card bordered={false}>
           <Form
             form={form}
             name="normal_login"
@@ -185,10 +192,11 @@ const InstructorRegistration = (props: any) => {
                     },
                   ]}
                 >
-                  <Input
+                  {/* <Input
                     style={{ width: "100%" }}
                     placeholder="Your date of birth"
-                  />
+                  /> */}
+                  <DatePicker placeholder="Date of Birth" style={{width:"100%"}} onChange={onChange} />
                 </Form.Item>
               </Col>
             </Row>
@@ -237,7 +245,7 @@ const InstructorRegistration = (props: any) => {
               // valuePropName="fileList"
               // getValueFromEvent={normFile}
             >
-              Your Documentation:
+              Professional Documents:
               <input type="file" onChange={changeHandler1} />
             </Form.Item>
             <Form.Item>
@@ -252,7 +260,6 @@ const InstructorRegistration = (props: any) => {
               </Button>
             </Form.Item>
           </Form>
-        </Card>
       </Col>
     </Row>
   );

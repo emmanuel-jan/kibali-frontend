@@ -39,6 +39,13 @@ export const coursesApiSlice = apiSlice.injectEndpoints({
             providesTags:['apis']
         }),
         getCoursesCategoriesById: builder.query({
+            query: (data) => ({
+                url:`/courses/?course_category=${data.id}&course_level=${data.yearId}`,
+                method:"GET"
+            }),
+            providesTags:['apis']
+        }),
+        getCoursesCategoriesByIds: builder.query({
             query: (id) => ({
                 url:`/courses/?course_category=${id}`,
                 method:"GET"
@@ -88,5 +95,6 @@ export const {
     useGetCoursesCategoriesQuery,
     useGetCoursesCategoriesByIdQuery,
     useGetCoursesLevelsQuery,
-    useGetCoursesTypesQuery
+    useGetCoursesTypesQuery,
+    useGetCoursesCategoriesByIdsQuery
 } = coursesApiSlice

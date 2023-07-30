@@ -58,7 +58,7 @@ const LandingPage = (props: any) => {
       >
         <Row justify={"center"}>
           <Col xs={12} sm={12} md={24} lg={24}>
-            <Title style={{ margin: 0, paddingTop: "10px", color: "white" }}>
+            <Title style={{ margin: 0, paddingTop: "5px", color: "white" }}>
               <DingtalkOutlined />
               Kibali
             </Title>

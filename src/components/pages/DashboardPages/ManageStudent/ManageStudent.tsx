@@ -196,14 +196,14 @@ const ManageStudent = (props: any) => {
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: `Register Student`,
+      label: `Sync with Student`,
       children: (
         <>
           <Row justify="center" style={{ height: "100vh" }}>
             <Col xs={24} sm={24} md={16} lg={16}>
               <Title level={4} style={{ color: "#2b243f" }}>
                 <PushpinOutlined />
-                &nbsp; Create Student Account
+                &nbsp; Enter Student Account Email
               </Title>
               <Card bordered={false}>
                 <Form
@@ -221,7 +221,7 @@ const ManageStudent = (props: any) => {
                       },
                     ]}
                   >
-                    <Input placeholder="Full Name" />
+                    <Input placeholder="Student Email eg student@kibali.com" />
                   </Form.Item>
                   {/* <Form.Item
                 name="category"
@@ -280,7 +280,7 @@ const ManageStudent = (props: any) => {
                       style={{ backgroundColor: "#0a0050" }}
                       loading={isLoading}
                     >
-                      Create Student Account
+                      Send Sync Request
                     </Button>
                   </Form.Item>
                 </Form>
