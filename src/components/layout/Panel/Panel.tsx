@@ -149,6 +149,11 @@ const Panel = (props: any) => {
   if (userInfo?.is_staff) {
     items = [
       getItem(
+        <h4 style={{color:"silver"}}>Admin Account</h4>,
+        "ad",
+        null
+      ),
+      getItem(
         <Link to="subscribed">Subscribed Courses</Link>,
         "subscribe",
         <DollarOutlined />
@@ -193,6 +198,11 @@ const Panel = (props: any) => {
   } else if (userInfo?.is_instructor) {
     items = [
       getItem(
+        <h4 style={{color:"silver"}}>Instructor Account</h4>,
+        "inst",
+        null
+      ),
+      getItem(
         <Link to="subscribed">Subscribed Courses</Link>,
         "subscribe",
         <DollarOutlined />
@@ -236,6 +246,11 @@ const Panel = (props: any) => {
   } else if (userInfo?.is_parent) {
     items = [
       getItem(
+        <h4 style={{color:"silver"}}>Parent Account</h4>,
+        "pt",
+        null
+      ),
+      getItem(
         <Link to="subscribed">Subscribed Courses</Link>,
         "subscribe",
         <DollarOutlined />
@@ -278,6 +293,11 @@ const Panel = (props: any) => {
     ];
   } else if (userInfo?.is_student) {
     items = [
+      getItem(
+        <h4 style={{color:"silver"}}>Student Account</h4>,
+        "st",
+        null
+      ),
       getItem(
         <Link to="subscribed">Subscribed Courses</Link>,
         "subscribe",
